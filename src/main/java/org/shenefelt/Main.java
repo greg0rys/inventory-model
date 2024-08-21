@@ -25,14 +25,13 @@ public class Main
     private static final String SEED_STRING = "INSERT INTO Computers(status, type,make, model, owner, serial_num) " +
             "VALUES" +
             "(default,?,?,?,?,?,?)";
-    private static String username = "flarp";
-    private static String password = "Radiokid!!0329";
-    static String makes[] = {"Dell", "HP", "Acer", "LG"};
-    static String models[] = {"Inspiron 14", "GPRO", "Gamer", "Gram"};
-    static int productNums[] = {101351,101451,101551,101651};
-    static String status[] = {"AVAILABLE", "DEPLOYED", "DEPLOYED_WITHOUT_DATA", "EWASTE"};
-    static String owners[] = {"Greg", "Mariposa", "Ryan", "Dylan"};
-    static String types[] = {"Laptop", "Mini-PC", "Desktop", "Thin Client"};
+
+    static String[] makes = {"Dell", "HP", "Acer", "LG"};
+    static String[] models = {"Inspiron 14", "GPRO", "Gamer", "Gram"};
+    static int[] productNums = {101351,101451,101551,101651};
+    static String[] status = {"AVAILABLE", "DEPLOYED", "DEPLOYED_WITHOUT_DATA", "EWASTE"};
+    static String[] owners = {"Greg", "Mariposa", "Ryan", "Dylan"};
+    static String[] types = {"Laptop", "Mini-PC", "Desktop", "Thin Client"};
     private static ArrayList<Computer> computers = new ArrayList<>();
     private static ComputerTableManager computerTableManager;
 
@@ -41,11 +40,11 @@ public class Main
     public static void main(String[] args) throws SQLException
     {
        TabletTableManager.seedTablets();
-//        seedDB();
-//        computers.addAll(ComputerTableManager.getAllComputers());
-//
-//        for(Computer com : computers)
-//            com.display();
+        seedDB();
+        computers.addAll(ComputerTableManager.getAllComputers());
+
+        for(Computer com : computers)
+            com.display();
     }
 
     private static void seedDB() throws SQLException

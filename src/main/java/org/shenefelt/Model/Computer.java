@@ -59,15 +59,38 @@ public class Computer
 
     public void display()
     {
-        String seperator = " ********** "; // added for printing the whole list of PCS.
-        out.println(seperator);
+        insertSeperator();
+
         out.println("Database ID: " + dbID);
         out.println("Availability: " + availability.toString());
         out.println("Make: " + make);
         out.println("Model: " + model);
         out.println("Serial Number: " + serialNum);
         out.println("Owner: " + owner);
-        out.println(seperator);
+        out.println();
+
+        insertSeperator();
+    }
+
+    public void display(String type)
+    {
+        insertSeperator();
+
+        out.println("Database ID: " + dbID);
+        out.println("Availability: " + availability.toString());
+        out.println("Make: " + make);
+        out.println("Model: " + model);
+        out.println("Serial Number: " + serialNum);
+        out.println("Device Type: " + type);
+        out.println("Owner: " + owner);
+        out.println();
+
+        insertSeperator();
+    }
+
+    private void insertSeperator()
+    {
+        out.println(" ********** ");
     }
 
     public String getStatusString()
