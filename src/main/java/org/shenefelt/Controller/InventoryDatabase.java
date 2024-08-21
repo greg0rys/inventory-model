@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class InventoryDatabase {
     // reset port on db to 3306 when on linux machines or whatever default port you are using for mariadb
-    private static final String DB_URL = "jdbc:mysql://localhost:3307/Inventory";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/Inventory";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "Radiokid!!0329";
 
