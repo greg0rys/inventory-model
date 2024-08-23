@@ -1,5 +1,7 @@
 # SEQUENTIAL EXECUTION
 
+# this file has been written in sequential order, do not rearrange these statements
+
 #Drop the DBS if they exist
 # WARNING ONLY EXE IF YOU ARE STARTING FRESH
 DROP TABLE IF EXISTS Users; # has to be dropped first as it has the fk requirement of company
@@ -17,6 +19,7 @@ CREATE TABLE Company(
     company_location TEXT NOT NULL,
     location_alias TEXT NOT NULL
 );
+
 # User Objects
 CREATE TABLE Users(
     ID INT PRIMARY KEY AUTO_INCREMENT,
@@ -52,6 +55,10 @@ CREATE TABLE Tablets(
 
 CREATE TABLE CellPhone(
    ID INT PRIMARY KEY AUTO_INCREMENT,
+   phone_number long null default 'No service / no data',
+   service_provider text not null,
+    # impose name space
+   constraint check_phone_provider CHECK (service_provider in('Verizon', 'AT&T', 'T-Mobile', 'US Cellular')),
    company_id INT NOT NULL,
    assigned_user INT NOT NULL,
    foreign key (company_id) references Company(ID),

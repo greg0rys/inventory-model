@@ -38,6 +38,17 @@ public class ComputerTableManager
 
     }
 
+    @Override
+    public String toString()
+    {
+        return "I am the ComputerTableManager";
+    }
+
+    /**
+     * Get all computers from the db server.
+     * @return List<Computer> ~ the list of all computers as stateful objects
+     * @throws SQLException database connectivity errors.
+     */
     public static List<Computer> getAllComputers() throws SQLException
     {
         try(Connection conn = InventoryDatabase.getConnection())
@@ -60,6 +71,7 @@ public class ComputerTableManager
         catch (SQLException e)
         {
             out.println("There was an error: " + e.getMessage());
+            throw new SQLException();
         }
 
         return COMPUTERS;
@@ -82,7 +94,7 @@ public class ComputerTableManager
         catch (SQLException e)
         {
             out.println("There was an error: " + e.getMessage());
-            return false;
+            throw new SQLException();
         }
     }
 
