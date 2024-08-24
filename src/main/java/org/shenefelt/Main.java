@@ -4,6 +4,7 @@ import org.shenefelt.Constants.AvailStatus;
 import org.shenefelt.Controller.ComputerTableManager;
 import org.shenefelt.Controller.InventoryDatabase;
 import org.shenefelt.Controller.TabletTableManager;
+import org.shenefelt.DBDemos.DatabaseSeeds;
 import org.shenefelt.Model.Computer;
 
 import java.sql.Connection;
@@ -39,35 +40,10 @@ public class Main
 
     public static void main(String[] args) throws SQLException
     {
-       TabletTableManager.seedTablets();
-        seedDB();
-        computers.addAll(ComputerTableManager.getAllComputers());
-
-        for(Computer com : computers)
-            com.display();
+        DatabaseSeeds.createUsers();
     }
 
-    private static void seedDB() throws SQLException
-    {        out.println("Seeding the DB");
 
-        String make, model, aStatus, owner, dType;
-        int productno;
-        boolean success;
-        for(int i = 0;  i < productNums.length; i++)
-        {
-            aStatus = status[i];
-            make = makes[i];
-            model = models[i];
-            owner = owners[i];
-            productno = productNums[i];
-            dType = types[i];
-            Computer temp =new Computer(AvailStatus.valueOf(aStatus), dType,model, make, owner, productno);
-            computers.add(temp);
-            success = ComputerTableManager.addComputer(temp);
-
-            out.println(success ? "Commited " + temp.getMake() : "Error commiting");
-
-        }}
 
 
 
