@@ -29,7 +29,7 @@ public class UserTableManager
         getDatabaseIDS();
 
         for(User U : USERS)
-            out.println(U.getFullName() + " ID: " + U.getUserID() + "\n\tEmail: " + U.getEmail() + "\n\tUsername: " + U.getUserName());
+            out.println(U.display());
     }
 
 

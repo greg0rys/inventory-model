@@ -106,6 +106,10 @@ public class User
         return firstName.toLowerCase().charAt(0) + "." + lastName.toLowerCase() + "@gshenefelt.com";
     }
 
+    public String display()
+    {
+        return getFullName() + " ID: " + getUserID() + "\n\tEmail: " + getEmail() + "\n\tUsername: " + getUserName();
+    }
 
 
 }
