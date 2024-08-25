@@ -17,7 +17,6 @@ public class MiniPC extends Computer
                   String pcMake,
                   String pcOwner,
                   int pcSerialNum) {
-        super(status, "Mini PC", pcModel, pcMake, pcOwner, pcSerialNum);
     }
 
     @Override

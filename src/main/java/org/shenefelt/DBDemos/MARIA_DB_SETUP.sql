@@ -4,12 +4,15 @@
 
 #Drop the DBS if they exist
 # WARNING ONLY EXE IF YOU ARE STARTING FRESH
-DROP TABLE IF EXISTS Users; # has to be dropped first as it has the fk requirement of company
-DROP TABLE IF EXISTS Company;
+
 DROP TABLE IF EXISTS Computers;
 DROP TABLE IF EXISTS Tablets;
 DROP TABLE IF EXISTS CellPhone;
 DROP TABLE IF EXISTS Printers;
+DROP TABLE IF EXISTS Users; # has to be dropped here as it has the fk requirement of company
+DROP TABLE IF EXISTS Company;
+
+
 
 
 # Company Objects
@@ -39,7 +42,7 @@ CREATE TABLE Computers
     TYPE TEXT NOT NULL,
     AVAILABILITY TEXT NOT NULL,
     company_id INT NOT NULL,
-    assigned_user INT NOT NULL,
+    assigned_user INT NULL DEFAULT 1,
     foreign key (company_id) references Company(ID),
     foreign key (assigned_user) references Users(ID)
 

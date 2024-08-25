@@ -65,7 +65,7 @@ public class ComputerTableManager
                 String deviceType = rs.getString("type");
                 int pcSerialNum = rs.getInt("serial_num");
                 int databaseID = rs.getInt("ID");
-                COMPUTERS.add(new Computer(databaseID, deviceType,status, pcModel, pcMake, pcOwner, pcSerialNum));
+//                COMPUTERS.add(new Computer(databaseID, deviceType,status, pcModel, pcMake, pcOwner, pcSerialNum));
             }
         }
         catch (SQLException e)
@@ -87,7 +87,6 @@ public class ComputerTableManager
             ps.setString(3, computer.getMake());
             ps.setString(4, computer.getModel());
             ps.setString(5, computer.getOwner());
-            ps.setInt(6, computer.getSerialNum());
 
             return ps.executeUpdate() > 0;
         }
