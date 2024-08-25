@@ -11,9 +11,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.System.exit;
 import static java.lang.System.out;
 import static org.shenefelt.Controller.InventoryDatabase.getConnection;
 
@@ -23,7 +25,7 @@ import static org.shenefelt.Controller.InventoryDatabase.getConnection;
 public class DatabaseSeeds {
     private static final String INSERT_INTO_USERS ="INSERT INTO Users (first_name, last_name, job_role, company_id) VALUES(?,?,?,?)";
     private static final String INSERT_INTO_COMPANIES ="INSERT INTO Company VALUES(default, ?, ?, ?)";
-    private static final String INSERT_INTO_COMPUTERS ="INSERT INTO Computers VALUES(default,?,?,?,?,?,?)";
+    private static final String INSERT_INTO_COMPUTERS ="INSERT INTO Computers VALUES(default,?,?,?,?,?,?,?)";
     private static final String INSERT_INTO_PRINTERS ="";
     private static final String INSERT_INTO_CELL_PHONES ="";
     private static final ArrayList<User> ALL_DB_USERS = new ArrayList<>();
@@ -101,7 +103,7 @@ public class DatabaseSeeds {
         seededUsers = true;
     }
 
-    public static void seedComputers()
+    public static void seedComputers() throws SQLException
     {
         ArrayList<Computer> computers = new ArrayList<>();
 
@@ -114,20 +116,23 @@ public class DatabaseSeeds {
             for(String[] record : records)
             {
                 PreparedStatement ps = conn.prepareStatement(INSERT_INTO_COMPUTERS);
-                ps.setString(1, record[0]);
-                ps.setString(2, record[1]);
-                ps.setString(3, record[2]);
-                ps.setString(4, record[3]);
-                ps.setInt(5, i);
-                ps.setInt(6, y);
+                ps.setString(1, record[0]); // make
+                ps.setString(2, record[1]); // model
+                ps.setString(3, record[2]); // type
+                ps.setString(4, record[3]); // availability
+                ps.setInt(5, Integer.parseInt(record[4])); // serial number
+                ps.setInt(6, i); // company owner ID
+                ps.setInt(7, y); // assigned user ID
                 ps.executeUpdate();
                 i++;
                 y++;
             }
-        } catch (SQLException e) {
+        } catch (IOException | CsvException e ) {
             throw new RuntimeException(e);
-        } catch (IOException | CsvException e) {
-            throw new RuntimeException(e);
+        } catch( SQLIntegrityConstraintViolationException cv)
+        {
+            out.println(cv.getMessage() + "\n\tplease check your demo_computers.csv file and delete any duplicate serial numbers");
+            exit(210);
         }
 
     }

@@ -28,9 +28,14 @@ CREATE TABLE Users(
     ID INT PRIMARY KEY AUTO_INCREMENT,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
+    full_name VARCHAR(255),
     company_id INT NOT NULL,
     job_role TEXT NOT NULL,
-    foreign key (company_id) references Company(ID)
+    email TEXT NOT NULL,
+    username TEXT NOT NULL,
+    foreign key (company_id) references Company(ID),
+    constraint unique_email unique(email),
+    constraint unique_username unique(username)
 );
 
 # Inventory objects
@@ -41,10 +46,12 @@ CREATE TABLE Computers
     MODEL TEXT NOT NULL,
     TYPE TEXT NOT NULL,
     AVAILABILITY TEXT NOT NULL,
+    serial_number int not null,
     company_id INT NOT NULL,
     assigned_user INT NULL DEFAULT 1,
     foreign key (company_id) references Company(ID),
-    foreign key (assigned_user) references Users(ID)
+    foreign key (assigned_user) references Users(ID),
+    CONSTRAINT unique_serial_number UNIQUE (serial_number)
 
 );
 
