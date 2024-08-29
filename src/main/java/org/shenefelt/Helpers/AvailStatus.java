@@ -1,4 +1,4 @@
-package org.shenefelt.Constants;
+package org.shenefelt.Helpers;
 
 public enum AvailStatus
 {

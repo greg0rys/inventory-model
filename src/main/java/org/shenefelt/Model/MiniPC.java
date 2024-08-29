@@ -1,6 +1,6 @@
 package org.shenefelt.Model;
 
-import org.shenefelt.Constants.AvailStatus;
+import org.shenefelt.Helpers.AvailStatus;
 
 /**
  * Creating child class to describe different types of computers.

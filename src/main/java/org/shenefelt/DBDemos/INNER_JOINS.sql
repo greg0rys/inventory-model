@@ -1,9 +1,10 @@
+USE Inventory;
+
 SELECT Computers.make,
        Computers.model,
        Computers.type,
        Computers.serial_number,
        Users.full_name,
-       Users.ID as employeeID,
        Company.location_alias
 
 from Computers
@@ -25,5 +26,6 @@ SELECT CONCAT(first_name, ' ', last_name) as Name,
 FROM Users
          INNER JOIN Company ON Users.company_id = Company.ID;
 
-DELETE FROM Users
-WHERE first_name = 'Bad';
+SELECT make from Computers where id = 1
+
+

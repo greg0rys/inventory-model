@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import org.shenefelt.Model.User;
 
+import static java.lang.System.out;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main
@@ -44,9 +46,14 @@ public class Main
 
 
     public static void update() throws SQLException {
-//        ComputerTableManager.getAllComputers();
-//        ComputerTableManager.updateComputerMake(2, "Fag");
-        ComputerTableManager.getUserAssignedComputer(1);
+        User u = UserTableManager.getUser();
+
+        if(u == null)
+        {
+            out.println("User doesn't exist");
+            System.exit(0);
+        }
+        u.display();
 
 
     }

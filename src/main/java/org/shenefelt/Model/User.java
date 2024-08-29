@@ -1,6 +1,7 @@
 package org.shenefelt.Model;
 
 
+import static java.lang.System.out;
 
 @SuppressWarnings("ALL")
 public class User
@@ -10,6 +11,7 @@ public class User
     private int userID;
     private String firstName;
     private String lastName;
+    private String wholeName;
     private String jobRole;
 
 
@@ -25,7 +27,7 @@ public class User
         userID = ID;
         firstName = fName;
         lastName = lName;
-        this.fullName = fullName;
+        wholeName = fullName;
         companyID = cID;
         jobRole = jobName;
     }
@@ -42,9 +44,9 @@ public class User
     {
         firstName = fName;
         lastName = lName;
-        fullName = getFullName();
         jobRole = jobName;
         companyID = cID;
+        wholeName = getFullName();
 
     }
 
@@ -88,7 +90,6 @@ public class User
         this.jobRole = jobRole;
     }
 
-    private String fullName;
 
 
     public String getFullName()
@@ -109,6 +110,16 @@ public class User
     public String display()
     {
         return getFullName() + " ID: " + getUserID() + "\n\tEmail: " + getEmail() + "\n\tUsername: " + getUserName();
+    }
+
+    public void displayNameWithID()
+    {
+        out.printf("ID: %d - %s %s\n", userID, firstName, lastName );
+    }
+
+    public void setFullName(String fullName)
+    {
+        wholeName = fullName.trim();
     }
 
 

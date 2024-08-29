@@ -3,7 +3,6 @@
  */
 package org.shenefelt.Model;
 
-import org.shenefelt.Constants.AvailStatus;
 
 import static java.lang.System.out;
 
