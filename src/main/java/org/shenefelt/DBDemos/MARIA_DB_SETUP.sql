@@ -81,6 +81,17 @@ CREATE TABLE Printers(
     assigned_user INT NOT NULL,
     foreign key (company_id) references Company(ID),
     foreign key (assigned_user) references Users(ID)
-)
+);
+
+# keep track of all the items a user has assigned to them.
+CREATE TABLE UserItems (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   user_id INT,
+   computer_id INT NULL,
+   phone_id INT NULL,
+   FOREIGN KEY (user_id) REFERENCES Users(id),
+   FOREIGN KEY (computer_id) REFERENCES Computers(id),
+   FOREIGN KEY (phone_id) REFERENCES CellPhone(id)
+);
 # will use FK in all devices
 # CREATE TABLE Owners();

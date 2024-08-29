@@ -95,13 +95,15 @@ public class DatabaseSeeds {
                 ps.setInt(4, cID[idx]);
                 ps.executeUpdate();
                 idx++;
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                out.println(e.getMessage());
+                exit(200);
             }
         }
 
         seededUsers = true;
     }
+
 
     public static void seedComputers() throws SQLException
     {

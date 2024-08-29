@@ -11,7 +11,7 @@ public class Computer
 {
     private String availability;
     private String model, make, owner, deviceType;
-    private int dbID,userID,companyID;
+    private int dbID,userID,companyID, serialNum;
 
     public Computer() { /* default no args */ }
 
@@ -39,25 +39,41 @@ public class Computer
         make = pcMake;
         userID = user_id;
         companyID = company_id;
+
     }
 
-    public Computer(String pcMake, String pcModel, String type, String status, String s, String s1)
-    {
 
+    public Computer(
+            int ID,
+            String type,
+            String availStat,
+            String pcModel,
+            String pcMake,
+            String pcOwner,
+            int pcSerialNum,
+            int cID,
+            int uID)
+    {
+        dbID = ID;
+        deviceType = type;
+        availability = availStat;
+        model = pcModel;
+        make = pcMake;
+        owner = pcOwner;
+        serialNum = pcSerialNum;
+        companyID = cID;
+        userID = uID;
     }
 
 
     public void display()
     {
-        insertSeperator();
-
         out.println("Database ID: " + dbID);
-        out.println("Availability: " + availability.toString());
+        out.println("Availability: " + availability);
         out.println("Make: " + make);
         out.println("Model: " + model);
-        out.println("Owner: " + companyID);
-        out.println("User: " + userID);
-        out.println();
+        out.println("Company ID: " + companyID);
+        out.println("User ID: " + userID);
 
         insertSeperator();
     }
@@ -67,7 +83,7 @@ public class Computer
         insertSeperator();
 
         out.println("Database ID: " + dbID);
-        out.println("Availability: " + availability.toString());
+        out.println("Availability: " + availability);
         out.println("Make: " + make);
         out.println("Model: " + model);
         out.println("Device Type: " + type);
@@ -92,17 +108,14 @@ public class Computer
     public String getMake() {return make;}
     public String getOwner() {return owner;}
 
-    public void templateString()
-    {
-        out.println(getStatusString()
-                    + getMake()
-                    + getModel()
-                    + getOwner()
-        );
-    }
+
 
     public String getDeviceType() { return deviceType; }
  // private db methods.
 
+    public int getDbID() { return dbID; }
+
+    public void setMake(String newMake)
+    { make = newMake; }
 
 }

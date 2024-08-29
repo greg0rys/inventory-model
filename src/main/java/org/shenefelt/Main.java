@@ -1,5 +1,6 @@
 package org.shenefelt;
 
+import org.shenefelt.Controller.ComputerTableManager;
 import org.shenefelt.Controller.UserTableManager;
 
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ public class Main
 //        DatabaseSeeds.seedCompanies();
 //        DatabaseSeeds.seedUsers();
 //        DatabaseSeeds.seedComputers();
-        UserTableManager.start();
+            update();
 //          UserTableManager.addUser(new User("Bad","Gal","owner",1));
 //        ArrayList<Computer> computers = new ArrayList<>();
 //
@@ -42,10 +43,12 @@ public class Main
     }
 
 
+    public static void update() throws SQLException {
+//        ComputerTableManager.getAllComputers();
+//        ComputerTableManager.updateComputerMake(2, "Fag");
+        ComputerTableManager.getUserAssignedComputer(1);
 
 
-
-
-
+    }
 
 }
