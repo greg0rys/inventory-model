@@ -63,10 +63,10 @@ public class UserTableManager
      * @param U the user we want to add.
      * @throws SQLException error with database query or connection.
      */
-    public static void addUser(User U) throws SQLException
+    public static boolean addUser(User U) throws SQLException
     {
         if(U == null)
-            return;
+            return false;
 
         try(Connection conn = InventoryDatabase.getConnection())
         {
@@ -81,10 +81,12 @@ public class UserTableManager
             {
                 out.println(U.getFullName() + " has been added");
                 U.setUserID((USER_IDS.size() - 1) + 1);
-                USERS.add(U);
+                return USERS.add(U);
             }
 
         }
+
+        return true;
     }
 
 

@@ -18,10 +18,11 @@ public class Main
 
     public static void main(String[] args) throws SQLException
     {
+        new Driver().start();
 //        DatabaseSeeds.seedCompanies();
 //        DatabaseSeeds.seedUsers();
 //        DatabaseSeeds.seedComputers();
-            update();
+//            update();
 //          UserTableManager.addUser(new User("Bad","Gal","owner",1));
 //        ArrayList<Computer> computers = new ArrayList<>();
 //
@@ -42,6 +43,7 @@ public class Main
 //
 //        for(Computer computer : computers)
 //            computer.display();
+        out.println("Thanks for stopping by");
     }
 
 

@@ -22,7 +22,8 @@ import static org.shenefelt.Controller.InventoryDatabase.getConnection;
 /**
  * Seed class used to seed the database with fictitious values as placeholders.
  */
-public class DatabaseSeeds {
+public class DatabaseSeeds
+{
     private static final String INSERT_INTO_USERS ="INSERT INTO Users (first_name, last_name, job_role, company_id) VALUES(?,?,?,?)";
     private static final String INSERT_INTO_COMPANIES ="INSERT INTO Company VALUES(default, ?, ?, ?)";
     private static final String INSERT_INTO_COMPUTERS ="INSERT INTO Computers VALUES(default,?,?,?,?,?,?,?)";
@@ -75,7 +76,7 @@ public class DatabaseSeeds {
     {
         if(seededUsers)
         {
-            out.println("Users already seeded");
+            seedError( "Users");
             return;
         }
 
@@ -137,9 +138,18 @@ public class DatabaseSeeds {
             exit(210);
         }
 
+        seededComputers = true;
+
     }
     private static void seedPrinters() { }
     private static void seedCellPhones() { }
+
+
+
+    private static void seedError(String error)
+    {
+        out.println(" has already been seeded in this session..");
+    }
 
 
 
