@@ -1,5 +1,6 @@
-package org.shenefelt.Controller;
+package org.shenefelt.Controller.Managers;
 
+import org.shenefelt.Controller.UserTableManager;
 import org.shenefelt.Model.User;
 
 import java.sql.SQLException;

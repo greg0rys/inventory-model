@@ -1,6 +1,7 @@
-package org.shenefelt.Model;
+package org.shenefelt.Model.SubClasses;
 
 import org.shenefelt.Helpers.AvailStatus;
+import org.shenefelt.Model.Computer;
 
 /**
  * Creating child class to describe different types of computers.

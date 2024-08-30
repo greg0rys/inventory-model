@@ -1,7 +1,6 @@
 package org.shenefelt;
 
-import org.shenefelt.Controller.UserManager;
-import org.shenefelt.Controller.UserTableManager;
+import org.shenefelt.Controller.Managers.UserManager;
 
 import java.sql.SQLException;
 import java.util.Scanner;
