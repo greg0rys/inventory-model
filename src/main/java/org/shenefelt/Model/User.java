@@ -13,6 +13,9 @@ public class User
     private String lastName;
     private String wholeName;
     private String jobRole;
+    private String email;
+    private String username;
+    private int hireStatus;
 
 
     public User() {}
@@ -30,6 +33,27 @@ public class User
         wholeName = fullName;
         companyID = cID;
         jobRole = jobName;
+    }
+
+    public User(int ID,
+                String fName,
+                String lName,
+                String fullName,
+                int cID,
+                String jobName,
+                String userN,
+                String emailAddress,
+                int hireStat)
+    {
+        userID = ID;
+        firstName = fName;
+        lastName = lName;
+        wholeName = fullName;
+        companyID = cID;
+        jobRole = jobName;
+        email = emailAddress;
+        username = userN;
+        hireStatus = hireStat;
     }
 
     /**
@@ -109,7 +133,8 @@ public class User
 
     public String display()
     {
-        return getFullName() + " ID: " + getUserID() + "\n\tEmail: " + getEmail() + "\n\tUsername: " + getUserName();
+        return getFullName() + " ID: " + getUserID() + "\n\tEmail: " + getEmail() + "\n\tUsername: " + getUserName()
+                + "\n\tJob Role: " + getJobRole() + "\n\tHire Status: " + (hireStatus == 1 ? "Active" : "Terminated");
     }
 
     public void displayNameWithID()
@@ -120,6 +145,20 @@ public class User
     public void setFullName(String fullName)
     {
         wholeName = fullName.trim();
+    }
+
+    public int getHireStatus() { return hireStatus; }
+
+    public boolean terminate()
+    {
+        hireStatus = 2;
+        return true;
+    }
+
+    public boolean hire()
+    {
+        hireStatus = 1;
+        return true;
     }
 
 

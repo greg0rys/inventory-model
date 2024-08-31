@@ -14,8 +14,7 @@ public class UserManager
     private final ArrayList<User> ALL_USERS = new ArrayList<>();
     private boolean hasLocalUpdates;
 
-    public UserManager()
-    {
+    public UserManager() throws SQLException {
         ALL_USERS.addAll(UserTableManager.getUsers()); // load our users from the database.
         hasLocalUpdates = false;
     }
@@ -51,11 +50,68 @@ public class UserManager
         return temp;
     }
 
-    public void displayAllUsers()
+    public boolean updateUsernameInDB(int userID, String username) throws SQLException
     {
-        for(User u : ALL_USERS)
-            u.display();
+        if(UserTableManager.updateUsername(userID,username))
+        {
+            ALL_USERS.clear();
+            ALL_USERS.addAll(UserTableManager.getUsers());
+            return true;
+        }
+
+        return false;
     }
 
+    public int searchUserByID()
+    {
+        for(User u : ALL_USERS)
+            u.displayNameWithID();
+        out.println("Please Enter the ID of The User Above: ");
+        // make sure you handle errors
+        return new Scanner(System.in).nextInt();
+    }
+
+    public void displayAllUsers() throws SQLException {
+        if(ALL_USERS.isEmpty())
+            ALL_USERS.addAll(UserTableManager.getUsers());
+
+        for(User u : ALL_USERS)
+            out.println(u.display());
+    }
+
+    public int getNumUsers() { return ALL_USERS.size(); }
+
+    public boolean changeHireStatus(User U, int hireStatus) throws SQLException {
+        if(U.getHireStatus() == hireStatus)
+            return false;
+        if(hireStatus == 1)
+            U.hire();
+        if(hireStatus == 2)
+            U.terminate();
+
+        return UserTableManager.updateHireStatus(U.getUserID(),U.getHireStatus());
+    }
+
+    public boolean terminateUser(User U) throws SQLException
+    {
+        if(changeHireStatus(U, 1))
+        {
+            out.println("Terminated: " + U.getFullName());
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean hireUser(User U) throws SQLException
+    {
+        if(changeHireStatus(U, 2))
+        {
+            out.println("Hired: " + U.getFullName());
+            return true;
+        }
+
+        return false;
+    }
 
 }

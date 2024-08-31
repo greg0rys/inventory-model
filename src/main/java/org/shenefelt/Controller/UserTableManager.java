@@ -3,6 +3,7 @@
  */
 package org.shenefelt.Controller;
 
+import org.shenefelt.Controller.Managers.UserManager;
 import org.shenefelt.Model.Company;
 import org.shenefelt.Model.User;
 import java.sql.Connection;
@@ -23,7 +24,12 @@ public class UserTableManager
     private static final String ADD_USER_FULL_NAME = "UPDATE Users SET full_name = ? WHERE ID = ?";
     private static final String GET_USER_IDS = "SELECT ID FROM Users";
     private static final String UPDATE_USER_FULL_NAME = "UPDATE Users SET full_name = ? WHERE ID = ?";
+    private static final String UPDATE_USER_JOB_ROLE = "UPDATE Users SET job_role = ? WHERE ID = ?";
+    private static final String UPDATE_USER_COMPANY = "UPDATE Users SET company_id = ? WHERE ID = ?";
+    private static final String UPDATE_USER_USERNAME = "UPDATE Users SET username = ? WHERE ID = ?";
+    private static final String UPDATE_USER_EMAILS = "UPDATE Users SET email = CONCAT(username, '@gregoryshenefelt.com')";
     private static final Scanner SCANNER = new Scanner(System.in);
+    private static final String UPDATE_HIRE_STATUS = "UPDATE Users SET hire_status = ? WHERE ID = ?";
 
     // default no args due to static class
     public UserTableManager() {    }
@@ -49,7 +55,10 @@ public class UserTableManager
                         rs.getString("last_name"),
                         rs.getString("full_name"),
                         rs.getInt("company_id"),
-                        rs.getString("job_role")
+                        rs.getString("job_role"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getInt("hire_status")
                 ));
             }
         } catch (Exception e) {
@@ -103,8 +112,9 @@ public class UserTableManager
      * Get the local structure that is holding the user objects
      * @return an array list of users.
      */
-    public static ArrayList<User> getUsers()
-    {
+    public static ArrayList<User> getUsers() throws SQLException {
+        if(USERS.isEmpty())
+            getAllUsers();
         return USERS;
     }
 
@@ -227,6 +237,34 @@ public class UserTableManager
     }
 
 
+    public static boolean updateUsername(int userID, String newName) throws SQLException
+    {
+        if(userID <= 0)
+            return false;
+
+        try(Connection conn = InventoryDatabase.getConnection())
+        {
+            PreparedStatement ps = conn.prepareStatement(UPDATE_USER_USERNAME);
+            PreparedStatement ps2 = conn.prepareStatement(UPDATE_USER_EMAILS);
+            ps.setString(1, newName);
+            ps.setInt(2, userID);
+
+            return ps.executeUpdate() > 0 && ps2.executeUpdate() > 0;
+        }
+    }
+
+    public static boolean updateHireStatus(int dbID, int hireStatus) throws SQLException
+    {
+        try(Connection conn = InventoryDatabase.getConnection())
+        {
+            PreparedStatement ps = conn.prepareStatement(UPDATE_HIRE_STATUS);
+            ps.setInt(1, hireStatus);
+            ps.setInt(2, dbID);
+
+            return ps.executeUpdate() > 0;
+        }
+
+    }
 
 
 }

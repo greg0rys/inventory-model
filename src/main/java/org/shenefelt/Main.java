@@ -18,7 +18,8 @@ public class Main
 
     public static void main(String[] args) throws SQLException
     {
-        new Driver().start();
+        Driver d = new Driver();
+        d.start();
 //        DatabaseSeeds.seedCompanies();
 //        DatabaseSeeds.seedUsers();
 //        DatabaseSeeds.seedComputers();
