@@ -14,14 +14,18 @@ public class UserManager
     private final ArrayList<User> ALL_USERS = new ArrayList<>();
     private boolean hasLocalUpdates;
 
-    public UserManager() throws SQLException {
+
+    public UserManager() throws SQLException
+    {
         ALL_USERS.addAll(UserTableManager.getUsers()); // load our users from the database.
         hasLocalUpdates = false;
     }
 
     public boolean hasLocalUpdates() { return hasLocalUpdates; }
 
+
     public ArrayList<User> getUsers() { return ALL_USERS; }
+
 
     public boolean addNewUser(boolean isAdmin) throws SQLException
     {
@@ -32,7 +36,9 @@ public class UserManager
 
     private void createAdminUser() { }
 
+
     private boolean pushLocalUpdate(User U) throws SQLException { return UserTableManager.addUser(U); }
+
 
     private User collectUserData()
     {
@@ -81,6 +87,7 @@ public class UserManager
 
     public int getNumUsers() { return ALL_USERS.size(); }
 
+
     public boolean changeHireStatus(User U, int hireStatus) throws SQLException {
         if(U.getHireStatus() == hireStatus)
             return false;
@@ -91,6 +98,7 @@ public class UserManager
 
         return UserTableManager.updateHireStatus(U.getUserID(),U.getHireStatus());
     }
+
 
     public boolean terminateUser(User U) throws SQLException
     {
@@ -103,6 +111,12 @@ public class UserManager
         return false;
     }
 
+    /**
+     * Update the users hired status to active
+     * @param U the User we will update
+     * @return true if updated, false if the record was unable to update.
+     * @throws SQLException database error.
+     */
     public boolean hireUser(User U) throws SQLException
     {
         if(changeHireStatus(U, 2))
@@ -110,6 +124,23 @@ public class UserManager
             out.println("Hired: " + U.getFullName());
             return true;
         }
+
+        return false;
+    }
+
+    public boolean newHire()
+    {
+        User temp = new User();
+        Scanner sc = new Scanner(System.in);
+        out.println("Enter Users First Name: ");
+        temp.setFirstName(sc.nextLine().trim());
+        out.println("Enter Users Last Name: ");
+        temp.setLastName(sc.nextLine().trim());
+        out.println("Enter Users Job Title: ");
+        temp.setJobRole(sc.nextLine().trim());
+        out.println("Users Company ID: ");
+        temp.setCompanyID(sc.nextInt());
+
 
         return false;
     }
