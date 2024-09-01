@@ -2,6 +2,8 @@ package org.shenefelt.Controller.Containers;
 
 import org.shenefelt.Model.*;
 
+// spell associated
+
 /**
  * Used to hold items from the database, they may have a user they may have all they may have none.
  */
@@ -73,7 +75,7 @@ public class ItemContainer
     public void setAssoicatedUser(User assoicatedUser)
     {
         this.assoicatedUser = assoicatedUser;
-    }`
+    }
 
     public CellPhone getPhone()
     {
