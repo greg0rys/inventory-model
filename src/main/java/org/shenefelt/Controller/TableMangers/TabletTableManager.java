@@ -1,4 +1,5 @@
-package org.shenefelt.Controller;
+package org.shenefelt.Controller.TableMangers;
+import org.shenefelt.Controller.InventoryDatabase;
 import org.shenefelt.Model.Tablet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

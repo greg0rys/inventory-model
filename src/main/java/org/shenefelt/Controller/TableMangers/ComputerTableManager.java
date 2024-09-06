@@ -1,4 +1,4 @@
-package org.shenefelt.Controller;
+package org.shenefelt.Controller.TableMangers;
 
 import org.shenefelt.Model.Computer;
 

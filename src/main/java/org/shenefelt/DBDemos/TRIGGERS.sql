@@ -1,4 +1,4 @@
-USE Inventory;
+USE TEST;
 
 DROP TRIGGER IF EXISTS Inventory.before_insert_ActiveUsers;
 DROP TRIGGER IF EXISTS Inventory.before_insert_TerminatedUsers;
@@ -26,14 +26,14 @@ DELIMITER ;
 DELIMITER //
 
 # add the current date as a termination date when terminating.
-CREATE TRIGGER before_insert_TerminatedUsers
-    BEFORE INSERT ON TerminatedUsers
-    FOR EACH ROW
-BEGIN
-    SET NEW.termination_date = CURDATE();
-END//
-
-DELIMITER ;
+# CREATE TRIGGER before_insert_TerminatedUsers
+#     BEFORE INSERT ON TerminatedUsers
+#     FOR EACH ROW
+# BEGIN
+#    #SET NEW.termination_date = CURDATE();
+# END//
+#
+# DELIMITER ;
 
 
 DELIMITER //
@@ -84,9 +84,8 @@ END//
 DELIMITER ;
 
 
-SELECT * FROM TerminatedUsers;
 
-SHOW TRIGGERS IN Inventory;
+SHOW TRIGGERS IN TEST;
 
 
 INSERT INTO Users(first_name, last_name, company_id,job_role,hire_status)

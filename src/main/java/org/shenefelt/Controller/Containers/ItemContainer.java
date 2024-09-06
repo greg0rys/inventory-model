@@ -2,6 +2,8 @@ package org.shenefelt.Controller.Containers;
 
 import org.shenefelt.Model.*;
 
+import static java.lang.System.out;
+
 // spell associated
 
 /**
@@ -13,19 +15,21 @@ public class ItemContainer
     private Computer computer;
     private Printer printer;
     private Tablet tablet;
-    private User assoicatedUser;
+    private User associatedUser;
 
 
     public ItemContainer() { }
 
-    public ItemContainer(CellPhone phone, Computer computer, Printer printer, Tablet tablet, User assoicatedUser)
+    public ItemContainer(CellPhone phone, Computer computer,
+                         Printer printer, Tablet tablet, User associatedUser)
     {
         this.phone = phone;
         this.computer = computer;
         this.printer = printer;
         this.tablet = tablet;
-        this.assoicatedUser = assoicatedUser;
+        this.associatedUser = associatedUser;
     }
+
 
     public ItemContainer(CellPhone phone)
     {
@@ -47,9 +51,9 @@ public class ItemContainer
         this.tablet = tablet;
     }
 
-    public ItemContainer(User assoicatedUser)
+    public ItemContainer(User associatedUser)
     {
-        this.assoicatedUser = assoicatedUser;
+        this.associatedUser = associatedUser;
     }
 
     public void setPhone(CellPhone phone)
@@ -72,9 +76,9 @@ public class ItemContainer
         this.tablet = tablet;
     }
 
-    public void setAssoicatedUser(User assoicatedUser)
+    public void setAssociatedUser(User associatedUser)
     {
-        this.assoicatedUser = assoicatedUser;
+        this.associatedUser = associatedUser;
     }
 
     public CellPhone getPhone()
@@ -97,10 +101,16 @@ public class ItemContainer
         return tablet;
     }
 
-    public User getAssoicatedUser()
+    public User getAssociatedUser()
     {
-        return assoicatedUser;
+        return associatedUser;
     }
 
+
+    @Override
+    public String toString()
+    {
+        return "hi";
+    }
 
 }

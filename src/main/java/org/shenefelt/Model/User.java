@@ -16,6 +16,7 @@ public class User
     private String email;
     private String username;
     private int hireStatus;
+    private boolean isAdmin;
 
 
     public User() {}
@@ -56,6 +57,29 @@ public class User
         hireStatus = hireStat;
     }
 
+    public User(int ID,
+                String fName,
+                String lName,
+                String fullName,
+                int cID,
+                String jobName,
+                String userN,
+                String emailAddress,
+                int hireStat,
+                boolean admin)
+    {
+        userID = ID;
+        firstName = fName;
+        lastName = lName;
+        wholeName = fullName;
+        companyID = cID;
+        jobRole = jobName;
+        email = emailAddress;
+        username = userN;
+        hireStatus = hireStat;
+        isAdmin = admin;
+    }
+
     /**
      * Users being inserted to the database without ID or full name
      * When adding the fullname to the insert use the method getFullname()
@@ -73,6 +97,11 @@ public class User
         wholeName = getFullName();
 
     }
+
+
+    public boolean isAdmin() { return isAdmin; }
+
+    public void setAdmin(boolean admin) { isAdmin = admin; }
 
     public int getCompanyID() {
         return companyID;
@@ -115,10 +144,14 @@ public class User
     }
 
 
-
     public String getFullName()
     {
         return firstName + " " + lastName;
+    }
+
+    public void setFullName(String fullName)
+    {
+        wholeName = fullName.trim();
     }
 
     public String getUserName()
@@ -131,10 +164,14 @@ public class User
         return firstName.toLowerCase().charAt(0) + "." + lastName.toLowerCase() + "@gshenefelt.com";
     }
 
+    public int getHireStatus() { return hireStatus; }
+
+
     public String display()
     {
         return getFullName() + " ID: " + getUserID() + "\n\tEmail: " + getEmail() + "\n\tUsername: " + getUserName()
-                + "\n\tJob Role: " + getJobRole() + "\n\tHire Status: " + (hireStatus == 1 ? "Active" : "Terminated");
+                + "\n\tJob Role: " + getJobRole() + "\n\tHire Status: " + (hireStatus == 1 ? "Active" : "Terminated")
+                + ("\n\tAdmin? " + (isAdmin ? " Yes" : " No"));
     }
 
     public void displayNameWithID()
@@ -142,12 +179,6 @@ public class User
         out.printf("ID: %d - %s %s\n", userID, firstName, lastName );
     }
 
-    public void setFullName(String fullName)
-    {
-        wholeName = fullName.trim();
-    }
-
-    public int getHireStatus() { return hireStatus; }
 
     public boolean terminate()
     {
@@ -160,6 +191,8 @@ public class User
         hireStatus = 1;
         return true;
     }
+
+
 
 
 }

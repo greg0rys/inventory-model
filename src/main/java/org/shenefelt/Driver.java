@@ -42,13 +42,18 @@ public class Driver
                 case 5:
                     out.println("Exit");
                     return;
+                case 6:
+                    out.println("List All Admin Users");
+                    out.println("going");
+
+                    userManager.displayAdminUsers();
+                    break;
                 default:
                     out.println("Not a valid menu choice");
                     break;
             }
         } while(next);
     }
-
 
     private static int getMenuChoice()
     {
@@ -57,22 +62,14 @@ public class Driver
         out.println("3. Delete User");
         out.println("4. List All Users");
         out.println("5. Exit");
+        out.println("6. List All Admin Users");
 
         out.println("Enter choice (e.x. 1, 2, 3, 4): ");
 
         return new Scanner(System.in).nextInt();
     }
 
-    private static int getUserMenuChoice()
-    {
-        out.println("1. Hire User");
-        out.println("2. Terminate User");
-        out.println("3. Back");
-
-        out.println("Enter choice (e.x. 1, 2, 3): ");
-        return new Scanner(System.in).nextInt();
-    }
-
+    // User Menu Operations
     private void userMenu() throws SQLException {
         boolean next = true;
 
@@ -91,10 +88,60 @@ public class Driver
                     out.println("Main Menu");
                     menu();
                     return;
+                case 4:
+                    out.println("Display Admins");
+                    userManager.displayAdminUsers();
 
                 default:
                     out.println("Not a valid menu choice");
             }
         } while(next);
     }
+
+
+    private static int getUserMenuChoice()
+    {
+        out.println("1. Hire User");
+        out.println("2. Terminate User");
+        out.println("3. Back");
+
+        out.println("Enter choice (e.x. 1, 2, 3): ");
+        return new Scanner(System.in).nextInt();
+    }
+
+
+    // END
+
+
+    // Item Menu Operations
+    private void itemMenu() throws SQLException
+    {
+        boolean next = true;
+        do {
+            switch(getItemMenuChoice())
+            {
+                case 1:
+                    out.println("Add Item");
+                    break;
+                case 2:
+                    out.println("Update Item");
+                    break;
+            }
+        } while(next);
+    }
+
+    private static int getItemMenuChoice()
+    {
+        out.println("1. Add Item");
+        out.println("2. Update Item");
+        out.println("3. Delete Item");
+        out.println("4. List All Items");
+        out.println("5. Back");
+        return new Scanner(System.in).nextInt();
+    }
+
+
+    // END
+
+
 }

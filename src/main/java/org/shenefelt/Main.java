@@ -1,9 +1,10 @@
 package org.shenefelt;
 
-import org.shenefelt.Controller.ComputerTableManager;
-import org.shenefelt.Controller.UserTableManager;
+import org.shenefelt.Controller.TableMangers.InventoryItemsManager;
+import org.shenefelt.Controller.TableMangers.UserTableManager;
 
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 import org.shenefelt.Model.User;
 
@@ -14,10 +15,12 @@ import static java.lang.System.out;
 public class Main
 {
     private static final String DB_URL = "jdbc:mariadb://localhost:3306/Inventory";
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
 
 
     public static void main(String[] args) throws SQLException
     {
+        logger.entering("Driver.java", "start");
         Driver d = new Driver();
         d.start();
 //        DatabaseSeeds.seedCompanies();
@@ -45,6 +48,9 @@ public class Main
 //        for(Computer computer : computers)
 //            computer.display();
         out.println("Thanks for stopping by");
+
+//        InventoryItemsManager.insertItem(3,2,1);
+
     }
 
 
