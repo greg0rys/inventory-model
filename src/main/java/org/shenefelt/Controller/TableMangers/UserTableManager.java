@@ -244,6 +244,13 @@ public class UserTableManager
     }
 
 
+    /**
+     * Manually update a users database username.
+     * @param userID
+     * @param newName
+     * @return
+     * @throws SQLException
+     */
     public static boolean updateUsername(int userID, String newName) throws SQLException
     {
         if(userID <= 0)
@@ -260,6 +267,13 @@ public class UserTableManager
         }
     }
 
+    /**
+     * Update a users hire status in the database.
+     * @param dbID
+     * @param hireStatus
+     * @return
+     * @throws SQLException
+     */
     public static boolean updateHireStatus(int dbID, int hireStatus) throws SQLException
     {
         try(Connection conn = InventoryDatabase.getConnection())
