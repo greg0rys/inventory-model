@@ -1,6 +1,7 @@
 package org.shenefelt.Controller.Managers;
 
 import org.shenefelt.Controller.TableMangers.UserTableManager;
+import org.shenefelt.Helpers.InputValidator;
 import org.shenefelt.Model.User;
 
 import java.sql.SQLException;
@@ -13,17 +14,14 @@ import static java.lang.System.out;
 public class UserManager
 {
     private final ArrayList<User> ALL_USERS = new ArrayList<>(); // store a local copy to avoid excess calls to DB
-    private boolean hasLocalUpdates;
+    private final static ArrayList<User> NEW_USERS = new ArrayList<>();
     private static final Logger logger = Logger.getLogger(UserManager.class.getName());
 
 
     public UserManager() throws SQLException
     {
         ALL_USERS.addAll(UserTableManager.getUsers()); // load our users from the database.
-        hasLocalUpdates = false;
     }
-
-    public boolean hasLocalUpdates() { return hasLocalUpdates; }
 
 
     public ArrayList<User> getUsers() { return ALL_USERS; }
@@ -32,7 +30,6 @@ public class UserManager
     public boolean addNewUser(boolean isAdmin) throws SQLException
     {
         ALL_USERS.add(collectUserData());
-        hasLocalUpdates = true;
         return pushLocalUpdate(ALL_USERS.get(ALL_USERS.size() - 1));
     }
 
@@ -60,6 +57,14 @@ public class UserManager
         return temp;
     }
 
+    /**
+     * Updadate
+     * TODO: this needs to be changed. we need to make sure that the username is formatted properly
+     * @param userID
+     * @param username
+     * @return
+     * @throws SQLException
+     */
     public boolean updateUsernameInDB(int userID, String username) throws SQLException
     {
         if(UserTableManager.updateUsername(userID,username))
@@ -72,23 +77,66 @@ public class UserManager
         return false;
     }
 
+    /**
+     * search for a user by user ID
+     * @return the user ID we want to select
+     */
     public int searchUserByID()
     {
+        int input = 0;
         for(User u : ALL_USERS)
             u.displayNameWithID();
+
         out.println("Please Enter the ID of The User Above: ");
-        // make sure you handle errors
-        return new Scanner(System.in).nextInt();
+        input = new Scanner(System.in).nextInt();
+
+        if(!InputValidator.validateUserSelectionByID(input))
+            return searchUserByID();
+
+        return input;
     }
 
-    public void displayAllUsers() throws SQLException {
+    /**
+     * Display all users.
+     * @throws SQLException if users cannot be loaded into the list
+     */
+    public void displayAllUsers() throws SQLException
+    {
+        // ensure that our list is actually loaded with users
         if(ALL_USERS.isEmpty())
             ALL_USERS.addAll(UserTableManager.getUsers());
 
         for(User u : ALL_USERS)
-            out.println(u.display());
+            out.println(u.toString());
+
+
     }
 
+    /**
+     * Display all known admin users
+     */
+    public void displayAdminUsers()
+    {
+        if(ALL_USERS.isEmpty())
+        {
+            out.println("There are no admins in the list");
+            return;
+        }
+
+        for(User u : ALL_USERS)
+        {
+            if(u.isAdmin()) {
+                out.println(u); // overridden User.toString() allows us to just pass the user and it will be called implictly.
+
+            }
+        }
+
+    }
+
+    /**
+     * Get the number of users in the list
+     * @return the total number of users in the list.
+     */
     public int getNumUsers() { return ALL_USERS.size(); }
 
 
@@ -105,8 +153,10 @@ public class UserManager
 
         if(U.getHireStatus() == hireStatus)  // check for redundancy
             return false;
+
         if(hireStatus == 1)
             U.hire();
+
         if(hireStatus == 2)
             U.terminate();
 
@@ -146,67 +196,47 @@ public class UserManager
         return false;
     }
 
-    public boolean newHire()
-    {
-        User temp = new User();
-        Scanner sc = new Scanner(System.in);
-        out.println("Enter Users First Name: ");
-        temp.setFirstName(sc.nextLine().trim());
-        out.println("Enter Users Last Name: ");
-        temp.setLastName(sc.nextLine().trim());
-        out.println("Enter Users Job Title: ");
-        temp.setJobRole(sc.nextLine().trim());
-        out.println("Users Company ID: ");
-        temp.setCompanyID(sc.nextInt());
-
-
-        return false;
-    }
-
 
     private boolean updateLocal(User U)
     {
-        if(U.hashCode() == ALL_USERS.get(ALL_USERS.indexOf(U)).hashCode()) //these are not hte same object if !=
-            return false;
-
-        User temp = ALL_USERS.get(ALL_USERS.indexOf(U));
-        Logger logger = Logger.getLogger("org.shenefelt.Main");
-        logger.info("Hey boo");
+        if(!hasUser(U)) return false;
 
 
-        return (ALL_USERS.set(ALL_USERS.indexOf(U), U) == null) ? true : false;
+        return ALL_USERS.set(ALL_USERS.indexOf(U), U) == null;
     }
 
 
-    public void displayAdminUsers()
+
+
+
+    /**
+     * Check to see if the user is present
+     * @param U the user we wish to check for
+     * @return true if the user is found false if else.
+     */
+    public boolean hasUser(User U) { return ALL_USERS.contains(U); }
+
+    /**
+     * Get a user from the list with their database ID.
+     * @param dbID the ID we wish to call
+     * @return the user if they are located null if they are not
+     */
+    public User getUser(int dbID)
     {
-//        if(ALL_USERS.isEmpty())
-//        {
-//            out.println("There are no admins in the list");
-//            return;
-//        }
+        if(!InputValidator.validateUserSelectionByID(dbID))
+            return null;
 
-        out.println("Found admins?");
+        User[] temp = new User[1]; // store the result in a single array vs an atomic value.
 
-        ALL_USERS.forEach(u -> {
-            u.setAdmin(false);
+        // seek out the user with a matching id.
+        ALL_USERS.forEach(e->{
+            if(e.getUserID() == dbID)
+                temp[0] = e;
         });
 
-        out.println(ALL_USERS.get(1).display());
-        ALL_USERS.get(1).setAdmin(true);
-
-        int counter = 0;
-        for(User u : ALL_USERS)
-        {
-            if(u.getUserID() % 2 == 0)
-                u.setAdmin(true);
-            if(u.isAdmin()) {
-                out.println(u.display());
-                counter++;
-            }
-        }
-
-        logger.info("Total Admins: " + counter);
+        return temp[0];
     }
+
+
 
 }

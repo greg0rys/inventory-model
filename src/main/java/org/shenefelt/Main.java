@@ -20,7 +20,6 @@ public class Main
 
     public static void main(String[] args) throws SQLException
     {
-        logger.entering("Driver.java", "start");
         Driver d = new Driver();
         d.start();
 //        DatabaseSeeds.seedCompanies();
@@ -62,7 +61,6 @@ public class Main
             out.println("User doesn't exist");
             System.exit(0);
         }
-        u.display();
 
 
     }
