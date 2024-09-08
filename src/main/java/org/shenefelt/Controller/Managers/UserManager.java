@@ -1,5 +1,6 @@
 package org.shenefelt.Controller.Managers;
 
+import org.apache.commons.text.WordUtils;
 import org.shenefelt.Controller.TableMangers.UserTableManager;
 import org.shenefelt.Helpers.InputValidator;
 import org.shenefelt.Model.User;
@@ -45,11 +46,11 @@ public class UserManager
         Scanner sc = new Scanner(System.in);
         User temp = new User();
         out.println("Enter Users First Name: ");
-        temp.setFirstName(sc.nextLine());
+        temp.setFirstName(WordUtils.capitalizeFully(sc.nextLine()));
         out.println("Enter Users Last Name: ");
-        temp.setLastName(sc.nextLine());
+        temp.setLastName(WordUtils.capitalizeFully(sc.nextLine()));
         out.println("Enter Users Job Title: ");
-        temp.setJobRole(sc.nextLine());
+        temp.setJobRole(WordUtils.capitalizeFully(sc.nextLine()));
         out.println("Users Company ID: ");
         temp.setCompanyID(sc.nextInt());
         logger.info("User data collected.. Validating inputs.");
@@ -67,7 +68,7 @@ public class UserManager
      */
     public boolean updateUsernameInDB(int userID, String username) throws SQLException
     {
-        if(UserTableManager.updateUsername(userID,username))
+        if(UserTableManager.updateUsernameAndEmail(userID,username))
         {
             ALL_USERS.clear();
             ALL_USERS.addAll(UserTableManager.getUsers());
@@ -235,6 +236,21 @@ public class UserManager
         });
 
         return temp[0];
+    }
+
+
+    public boolean updateUserFullName() throws SQLException {
+        Scanner sc = new Scanner(System.in);
+        User temp = new User();
+        out.println("Enter Users First Name: ");
+        temp.setFirstName(WordUtils.capitalizeFully(sc.nextLine()).strip());
+        out.println("Enter Users Last Name: ");
+        temp.setLastName(WordUtils.capitalizeFully(sc.nextLine()).strip());
+        out.println("Users Company ID: ");
+        temp.setCompanyID(sc.nextInt());
+
+        return UserTableManager.updateUserFullName(temp);
+
     }
 
 

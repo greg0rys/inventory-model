@@ -1,6 +1,9 @@
 package org.shenefelt.Model;
 
 
+import org.apache.commons.text.WordUtils;
+import org.shenefelt.Helpers.InputValidator;
+
 import static java.lang.System.out;
 
 @SuppressWarnings("ALL")
@@ -86,10 +89,10 @@ public class User
     /**
      * Users being inserted to the database without ID or full name
      * When adding the fullname to the insert use the method getFullname()
-     * @param fName
-     * @param lName
-     * @param jobName
-     * @param cID
+     * @param fName users first name
+     * @param lName users last name
+     * @param jobName users job role
+     * @param cID the company ID the users associates with.
      */
     public User(String fName, String lName, String jobName, int cID)
     {
@@ -210,7 +213,7 @@ public class User
      */
     public String getFullName()
     {
-        return firstName + " " + lastName;
+        return WordUtils.capitalizeFully(firstName + " " + lastName);
     }
 
 
@@ -220,12 +223,11 @@ public class User
      */
     public void setFullName(String fullName)
     {
-        if(fullName.trim().isEmpty() || fullName == null)
+        if(!InputValidator.validateFullName(fullName))
         {
             wholeName = " ";
-            return; // we out this bitch.
+            return;
         }
-
         wholeName = fullName.trim();
     }
 
@@ -248,6 +250,11 @@ public class User
     public String getEmail()
     {
         return firstName.toLowerCase().charAt(0) + "." + lastName.toLowerCase() + "@gshenefelt.com";
+    }
+
+    public String generateUserName()
+    {
+        return firstName.toLowerCase().charAt(0) + "." + lastName.toLowerCase();
     }
 
     /**
@@ -273,7 +280,8 @@ public class User
     @Override
     public String toString()
     {
-        return getFullName() + " ID: " + getUserID() + "\n\tEmail: " + getEmail() + "\n\tUsername: " + getUserName()
+        return WordUtils.capitalizeFully(getFullName()) + "\n\tID: " + getUserID() + "\n\tEmail: " + getEmail() + "\n" +
+                "\tUsername: " + getUserName()
                 + "\n\tJob Role: " + getJobRole() + "\n\tHire Status: " + (hireStatus == 1 ? "Active" : "Terminated")
                 + ("\n\tAdmin? " + (isAdmin ? " Yes" : " No"));
     }

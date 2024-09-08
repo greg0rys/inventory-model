@@ -101,9 +101,14 @@ public class Driver
 
     private static int getUserMenuChoice()
     {
-        out.println("1. Hire User");
-        out.println("2. Terminate User");
-        out.println("3. Back");
+        out.println("1. Add New User");
+        out.println("2. Change Employment Status");
+        out.println("3. Change Employee Company");
+        out.println("4. Update User");
+        out.println("5. Display All Users from Company");
+        out.println("6. Display All Employees (All Companies)");
+        out.println("7. Display All Admin Users from Company");
+        out.println("8. Display All Admin Users (All Companies)");
 
         out.println("Enter choice (e.x. 1, 2, 3): ");
         return new Scanner(System.in).nextInt();

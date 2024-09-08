@@ -4,6 +4,7 @@
 package org.shenefelt.Controller.TableMangers;
 
 import org.shenefelt.Controller.InventoryDatabase;
+import org.shenefelt.Helpers.InputValidator;
 import org.shenefelt.Model.Company;
 import org.shenefelt.Model.User;
 import java.sql.Connection;
@@ -21,7 +22,7 @@ public class UserTableManager
     private static ArrayList<Integer> USER_IDS = new ArrayList<>();
     private static final ArrayList<User> USERS = new ArrayList<>();
     private static final ArrayList<Company> COMPANIES = new ArrayList<>(); // used to get company data.
-    private static final String ADD_USER = "INSERT INTO Users VALUES(default,?,?,?,?,?,default,default,?,?)";
+    private static final String ADD_USER = "INSERT INTO Users VALUES(default,?,?,?,?,?,?,?,?,?)";
     private static final String ADD_USER_FULL_NAME = "UPDATE Users SET full_name = ? WHERE ID = ?";
     private static final String GET_USER_IDS = "SELECT ID FROM Users";
     private static final String UPDATE_USER_FULL_NAME = "UPDATE Users SET full_name = ? WHERE ID = ?";
@@ -87,8 +88,11 @@ public class UserTableManager
             ps.setString(3, U.getFullName());
             ps.setInt(4, U.getCompanyID());
             ps.setString(5, U.getJobRole());
-            ps.setInt(6,1);
-            ps.setInt(7,1);
+            ps.setString(6,U.generateUserName());
+            ps.setString(7,U.getEmail());
+            ps.setInt(8, 1);
+            ps.setInt(9, 0);
+
 
             if(ps.executeUpdate() > 0)
             {
@@ -215,7 +219,7 @@ public class UserTableManager
      * @return true if we updated the user.
      * @throws SQLException there was an error with the database.
      */
-    public boolean updateUserFullName() throws SQLException {
+    public static boolean updateUserFullName(User U) throws SQLException {
         String newName;
         int userID;
         User temp;
@@ -251,10 +255,13 @@ public class UserTableManager
      * @return
      * @throws SQLException
      */
-    public static boolean updateUsername(int userID, String newName) throws SQLException
+    public static boolean updateUsernameAndEmail(int userID, String newName)
+            throws SQLException
     {
-        if(userID <= 0)
+
+        if(!InputValidator.validateUserSelectionByID(userID))
             return false;
+
 
         try(Connection conn = InventoryDatabase.getConnection())
         {
