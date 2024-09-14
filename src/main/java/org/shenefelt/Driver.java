@@ -10,14 +10,15 @@ import static java.lang.System.out;
 
 public class Driver
 {
-    private UserManager userManager = new UserManager();
+    private final UserManager USER_MANAGER = new UserManager();
     public Driver() throws SQLException { }
 
     public void start() throws SQLException {
         menu();
     }
 
-    private void menu() throws SQLException {
+    private void menu() throws SQLException
+    {
         boolean next = true;
 
         do {
@@ -25,7 +26,7 @@ public class Driver
             {
                 case 1:
                     out.println("Add User");
-                    userManager.addNewUser(false);
+                    USER_MANAGER.addNewUser(false);
                     break;
                 case 2:
                     out.println("Update User");
@@ -36,8 +37,8 @@ public class Driver
                     return; // you need to return each time you call a new menu or it will loop twice.
                 case 4:
                     out.println("List All Users");
-                    userManager.displayAllUsers();
-                    out.println("Total Number of Users: " + userManager.getNumUsers());
+                    USER_MANAGER.displayAllUsers();
+                    out.println("Total Number of Users: " + USER_MANAGER.getNumUsers());
                     break;
                 case 5:
                     out.println("Exit");
@@ -46,7 +47,7 @@ public class Driver
                     out.println("List All Admin Users");
                     out.println("going");
 
-                    userManager.displayAdminUsers();
+                    USER_MANAGER.displayAdminUsers();
                     break;
                 default:
                     out.println("Not a valid menu choice");
@@ -69,8 +70,19 @@ public class Driver
         return new Scanner(System.in).nextInt();
     }
 
+
+    // company menu operations.
+    private void companyMenu() throws SQLException
+    {
+        boolean next = true;
+
+    }
+
+
+
     // User Menu Operations
-    private void userMenu() throws SQLException {
+    private void userMenu() throws SQLException
+    {
         boolean next = true;
 
         do {
@@ -78,19 +90,32 @@ public class Driver
             {
                 case 1:
                     out.println("Hire User");
-
+                    USER_MANAGER.addNewUser(true);
                     break;
                 case 2:
                     out.println("Terminate User");
-                    userManager.terminateUser(userManager.getUsers().get(userManager.searchUserByID()));
+                    USER_MANAGER.terminateUser(USER_MANAGER.getUsers().get(USER_MANAGER.searchUserByID()));
                     break;
                 case 3:
-                    out.println("Main Menu");
+                    out.println("Change Employee Company");
                     menu();
                     return;
                 case 4:
                     out.println("Display Admins");
-                    userManager.displayAdminUsers();
+                    USER_MANAGER.displayAdminUsers();
+                    break;
+                case 5:
+                    out.println("Display All Employees");
+                    USER_MANAGER.displayAllUsers();
+                    break;
+                case 6:
+                    out.println("Display All Employees from Company");
+                    break;
+                case 7:
+                    out.println("Go back");
+                    next = false; // we out.
+                    break;
+
 
                 default:
                     out.println("Not a valid menu choice");

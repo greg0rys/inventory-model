@@ -134,6 +134,16 @@ public class UserManager
 
     }
 
+    public void changeUsersCompany(User U)
+    {
+        if(U == null) return;
+
+
+        out.println("Please Select a Company ID from Above");
+        int input = new Scanner(System.in).nextInt();
+
+    }
+
     /**
      * Get the number of users in the list
      * @return the total number of users in the list.
