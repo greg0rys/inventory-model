@@ -11,6 +11,7 @@ import static java.lang.System.out;
 public class Driver
 {
     private final UserManager USER_MANAGER = new UserManager();
+
     public Driver() throws SQLException { }
 
     public void start() throws SQLException {

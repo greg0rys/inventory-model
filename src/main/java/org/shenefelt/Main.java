@@ -1,10 +1,14 @@
 package org.shenefelt;
 
 import org.shenefelt.Controller.Managers.CompanyManager;
+import org.shenefelt.Controller.Managers.UserManager;
+import org.shenefelt.Controller.TableMangers.CompanyTableManager;
+import org.shenefelt.Menus.MainMenu;
+import org.shenefelt.Model.User;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Logger;
-
 import static java.lang.System.out;
 
 
@@ -18,11 +22,26 @@ public class Main
     {
         // new Driver().start(); // why create an object and store to only run one method???
 
-        new CompanyManager().displayAllCompanies();
+        CompanyManager CM = new CompanyManager();
+        UserManager UM = new UserManager();
 
-        out.println();
+        out.println("There are " + CM.getTotalNumberOfCompanies() + " companies in the systems" +
+                " database.. Generating list.");
+        CM.displayAllCompanies();
 
-        new CompanyManager().displayAllCompanyEmployeeCounts();
+
+        ArrayList<User> temp = UM.getAllCompanyUsers(6);
+
+        if(temp.isEmpty())
+            out.println("No users for company");
+        else
+            out.println("Users for company: " + temp.size());
+
+        temp.forEach(s -> out.println(s.toString() + "\n"));
+
+
+        MainMenu.menu();
+
 
     }
 

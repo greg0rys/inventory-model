@@ -264,5 +264,16 @@ public class UserManager
     }
 
 
+    public ArrayList<User> getAllCompanyUsers(int companyID)
+    {
+        ArrayList<User> temp = new ArrayList<>();
+
+        ALL_USERS.forEach(e->{
+            if(e.getCompanyID() == companyID)
+                temp.add(e);
+        });
+
+        return temp;
+    }
 
 }

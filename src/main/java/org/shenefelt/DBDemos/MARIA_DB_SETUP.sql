@@ -70,9 +70,8 @@ CREATE TABLE Tablets(
 
 CREATE TABLE CellPhone(
                           ID INT PRIMARY KEY AUTO_INCREMENT,
-                          phone_number LONG NULL DEFAULT 'No service / no data',
+                          phone_number BIGINT NULL DEFAULT NULL,
                           service_provider TEXT NOT NULL,
-    -- impose name space
                           CONSTRAINT check_phone_provider CHECK (service_provider IN('Verizon', 'AT&T', 'T-Mobile', 'US Cellular')),
                           company_id INT NOT NULL,
                           assigned_user INT NOT NULL,
@@ -98,9 +97,6 @@ CREATE TABLE UserItems (
                            FOREIGN KEY (computer_id) REFERENCES Computers(ID) ON DELETE SET NULL,
                            FOREIGN KEY (phone_id) REFERENCES CellPhone(ID) ON DELETE SET NULL
 );
-
-
-
 
 # Insert into Company
 INSERT INTO Company (company_name, company_location, location_alias) VALUES ('TechCorp', 'New York', 'NYC');
@@ -149,10 +145,6 @@ VALUES
     (1, 1, 1),
     (2, 2, 2),
     (3, 3, 3);
-
-
-
-SELECT * FROM ActiveUsers, CellPhone, Company, Computers, Printers, Tablets, UserItems, Users
 
 
 

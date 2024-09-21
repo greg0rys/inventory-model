@@ -2,12 +2,16 @@ package org.shenefelt.Model;
 
 import org.shenefelt.Helpers.InputValidator;
 
+import java.util.ArrayList;
+
 public class Company
 {
     private String locationName;
     private int dbID;
     private String companyName;
     private String companyLocation;
+    private int numberOfEmployees;
+    private ArrayList<User> users;
 
 
 
@@ -17,15 +21,19 @@ public class Company
         companyName = " ";
         companyLocation = " ";
         dbID = 0;
+        numberOfEmployees = 0;
+        users = new ArrayList<>();
 
     }
 
-    public Company(int ID, String cName, String cLocation, String lName)
+    public Company(int ID, String cName, String cLocation, String lName, int empNum)
     {
         dbID = ID;
         companyName = cName;
         companyLocation = cLocation;
         locationName = lName;
+        numberOfEmployees = empNum;
+        users = new ArrayList<>();
 
     }
 
@@ -33,6 +41,7 @@ public class Company
     public String getCompanyName() { return companyName; }
     public String getCompanyLocation() { return companyLocation; }
     public String getLocationName() { return locationName; }
+    public int getNumberOfEmployees() { return numberOfEmployees; }
 
     /**
      * Set the companies name ensure non-null string is passed in
@@ -40,14 +49,15 @@ public class Company
      */
     public void setCompanyName(String newName)
     {
+
         companyName = (InputValidator.nonEmptyString(newName) ? "no company provided"
                                                                : newName);
     }
 
     /**
-     * set company location name ensure non-null string is passed in.
+     * set company location name ensures non-null string is passed in.
      * @param newLocation new city & state location.
-     *                    e.g. Portland, Oregon.
+     *                    e.g., Portland, Oregon.
      */
     public void setCompanyLocation(String newLocation)
     {
@@ -57,12 +67,14 @@ public class Company
     }
 
     /**
-     * Set the companies location alias e.g. Medplace 121 - PDX
+     * Set the companies location alias e.g., Medplace 121 - PDX
      * @param newAlias the new company alias
      */
     public void setLocationName(String newAlias)
     {
-        locationName = (InputValidator.nonEmptyString(newAlias.trim()) ?  (companyName + " - No Alias") :
+
+        locationName = (InputValidator.nonEmptyString(newAlias.trim()) ?
+                (companyName + " - No Alias") :
                 (companyName + " " + newAlias.trim()));
     }
 
@@ -74,7 +86,7 @@ public class Company
     public String toString()
     {
         return "\nCompany Name: " + companyName + "\nCompany Location: " + companyLocation
-                + "\nLocation Name: " + locationName;
+                + "\nLocation Name: " + locationName + "\nNumber of Employees: " + numberOfEmployees;
     }
 
 

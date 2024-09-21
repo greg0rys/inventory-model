@@ -43,7 +43,6 @@ public class CompanyManager
             out.println(c);
     }
 
-    public void displayAllCompanyEmployeeCounts() throws SQLException { CompanyTableManager.displayAllCompanyEmployeeCounts();}
 
 
 
