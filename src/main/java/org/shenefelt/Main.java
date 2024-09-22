@@ -35,7 +35,7 @@ public class Main
         if(temp.isEmpty())
             out.println("No users for company");
         else
-            out.println("Users for company: " + temp.size());
+            out.println("Users for company: " + temp.size() + "\n***DISPLAYING***");
 
         temp.forEach(s -> out.println(s.toString() + "\n"));
 

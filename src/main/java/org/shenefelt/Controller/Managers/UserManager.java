@@ -40,11 +40,18 @@ public class UserManager
     private boolean pushLocalUpdate(User U) throws SQLException { return UserTableManager.addUser(U); }
 
 
+    /**
+     * Collect data for a new user, all inputs are sanitized.
+     * @return
+     */
     private User collectUserData()
     {
         logger.info("Collecting user data..");
         Scanner sc = new Scanner(System.in);
         User temp = new User();
+        String S, X, Y;
+        int I = 0;
+
         out.println("Enter Users First Name: ");
         temp.setFirstName(WordUtils.capitalizeFully(sc.nextLine()));
         out.println("Enter Users Last Name: ");

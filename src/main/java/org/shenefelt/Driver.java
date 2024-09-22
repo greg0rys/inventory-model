@@ -1,6 +1,7 @@
 package org.shenefelt;
 
 import org.shenefelt.Controller.Managers.UserManager;
+import org.shenefelt.Helpers.InputValidator;
 import org.shenefelt.Model.User;
 
 import java.sql.SQLException;
@@ -57,14 +58,16 @@ public class Driver
         } while(next);
     }
 
+    /**
+     * Has the user pick the proper menu operation menu.
+     * @return the menu choice of the user.
+     */
     private static int getMenuChoice()
     {
-        out.println("1. Add User");
-        out.println("2. Update User");
-        out.println("3. Delete User");
-        out.println("4. List All Users");
-        out.println("5. Exit");
-        out.println("6. List All Admin Users");
+        out.println("1. User Menu");
+        out.println("2. Company Menu");
+        out.println("3. Inventory Menu");
+        out.println("4. Exit");
 
         out.println("Enter choice (e.x. 1, 2, 3, 4): ");
 
@@ -170,6 +173,8 @@ public class Driver
         out.println("5. Back");
         return new Scanner(System.in).nextInt();
     }
+
+
 
 
     // END
