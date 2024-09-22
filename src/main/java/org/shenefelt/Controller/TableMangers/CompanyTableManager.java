@@ -1,7 +1,6 @@
 package org.shenefelt.Controller.TableMangers;
 
 import org.shenefelt.Controller.InventoryDatabase;
-import org.shenefelt.Controller.Managers.UserManager;
 import org.shenefelt.Model.Company;
 import org.shenefelt.Model.User;
 
@@ -13,10 +12,14 @@ import static java.lang.System.out;
 
 public class CompanyTableManager
 {
-    private static final String SELECT_ALL_COMPANIES = "SELECT Company.ID, Company.company_name, Company.company_location, Company.location_alias, COUNT(Users.id) AS user_count\n" +
+    private static final String GET_EMPLOYEE_COUNTS_FOR_ALL = "SELECT Company.ID, Company.company_name, Company.company_location, " +
+            "Company.location_alias, COUNT(Users.id) AS user_count\n" +
             "FROM Company\n" +
             "LEFT JOIN Users ON Users.company_id = Company.ID\n" +
             "GROUP BY Company.ID, Company.company_name, Company.company_location, Company.location_alias;";
+    private static final String GET_ALL_EMPLOYEES_FOR_COMPANY = "SELECT u.full_name, u.email, u.job_role\n" +
+            "FROM Users u\n" +
+            "WHERE company_id = ?";
 
     private static final String GET_FK_USER = "SELECT * FROM Users WHERE company_id = ?";
     private final static String UPDATE_USER_COMPANY_ID_TO_UNASSIGNED = "UPDATE Users set company_id = 6 WHERE " +
@@ -24,6 +27,7 @@ public class CompanyTableManager
     private final static String DELETE_COMPANY = "DELETE FROM Company WHERE company_name = ?";
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private static final ArrayList<Company> ALL_COMPANIES = new ArrayList<>();
+
 
     // default no args constructor.
     public CompanyTableManager () throws SQLException
@@ -42,22 +46,62 @@ public class CompanyTableManager
 
         try(Connection conn = InventoryDatabase.getConnection())
         {
-            ArrayList<Company> all_companies = new ArrayList<>();
-            ResultSet rs = conn.createStatement().executeQuery(SELECT_ALL_COMPANIES);
+            ResultSet rs = conn.createStatement().executeQuery(GET_EMPLOYEE_COUNTS_FOR_ALL);
 
             while(rs.next())
             {
-                all_companies.add(new Company(
+
+                ALL_COMPANIES.add(new Company(
                         rs.getInt("ID"),
                         rs.getString("company_name"),
                         rs.getString("company_location"),
                         rs.getString("location_alias"),
                         rs.getInt("user_count")
                 ));
+
+
+
             }
 
-            return all_companies;
+            // load my companies with staff.
+            for(Company c : ALL_COMPANIES)
+                getStaff(c);
+
+            return ALL_COMPANIES;
         }
+
+    }
+
+
+    /**
+     * Get all staff associated with this company in the database.
+     * @param C the company we want staff for.
+     */
+    private static void getStaff(Company C)
+    {
+        ArrayList<User> users = new ArrayList<>();
+        try(Connection conn = InventoryDatabase.getConnection())
+        {
+                PreparedStatement ps = conn.prepareStatement(GET_ALL_EMPLOYEES_FOR_COMPANY);
+                ps.setInt(1, C.getDbID());
+                ResultSet rs = ps.executeQuery();
+
+                while(rs.next())
+                    users.add(new User(
+                            rs.getString("first_name"),
+                            rs.getString("last_name"),
+                            rs.getString("full_name"),
+                            rs.getString("job_role"),
+                            rs.getString("email")
+
+                    ));
+
+                C.setStaff(users);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 
@@ -77,9 +121,6 @@ public class CompanyTableManager
             return false;
 
         boolean flag = false;
-
-//        if(!searchForCompany(companyName))
-//            return false;
 
         out.println("This operation cannot be undone, are you sure? (Y/N): ");
         if(new Scanner(System.in).nextLine().equalsIgnoreCase("N"))

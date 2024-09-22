@@ -27,7 +27,9 @@ public class Main
 
         out.println("There are " + CM.getTotalNumberOfCompanies() + " companies in the systems" +
                 " database.. Generating list.");
-        CM.displayAllCompanies();
+//        CM.displayAllCompanies();
+
+        CM.displayAllStaff();
 
 
         ArrayList<User> temp = UM.getAllCompanyUsers(6);

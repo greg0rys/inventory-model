@@ -11,7 +11,7 @@ public class Company
     private String companyName;
     private String companyLocation;
     private int numberOfEmployees;
-    private ArrayList<User> users;
+    private ArrayList<User> staff;
 
 
 
@@ -22,7 +22,7 @@ public class Company
         companyLocation = " ";
         dbID = 0;
         numberOfEmployees = 0;
-        users = new ArrayList<>();
+        staff = new ArrayList<>();
 
     }
 
@@ -33,7 +33,18 @@ public class Company
         companyLocation = cLocation;
         locationName = lName;
         numberOfEmployees = empNum;
-        users = new ArrayList<>();
+        staff = new ArrayList<>();
+
+    }
+
+    public Company(int ID, String cName, String cLocation, String lName, int empNum, ArrayList<User> employees)
+    {
+        dbID = ID;
+        companyName = cName;
+        companyLocation = cLocation;
+        locationName = lName;
+        numberOfEmployees = empNum;
+        staff = employees;
 
     }
 
@@ -76,6 +87,17 @@ public class Company
         locationName = (InputValidator.nonEmptyString(newAlias.trim()) ?
                 (companyName + " - No Alias") :
                 (companyName + " " + newAlias.trim()));
+    }
+
+
+    public void setStaff(ArrayList<User> newStaff)
+{
+    staff = newStaff;
+}
+
+public ArrayList<User> getStaff()
+    {
+        return staff;
     }
 
 
