@@ -24,6 +24,13 @@ public class User
 
     public User() {}
 
+    public User(String first, String last, String wholeName, String jobName, String email)
+    {
+        this.wholeName = wholeName;
+        this.jobRole = jobName;
+        this.email = email;
+    }
+
     public User(int ID,
                 String fName,
                 String lName,

@@ -2,7 +2,6 @@ package org.shenefelt;
 
 import org.shenefelt.Controller.Managers.UserManager;
 import org.shenefelt.Helpers.InputValidator;
-import org.shenefelt.Model.User;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -12,6 +11,7 @@ import static java.lang.System.out;
 public class Driver
 {
     private final UserManager USER_MANAGER = new UserManager();
+    private final Scanner scanner = new Scanner(System.in);
 
     public Driver() throws SQLException { }
 
@@ -27,30 +27,20 @@ public class Driver
             switch(getMenuChoice())
             {
                 case 1:
-                    out.println("Add User");
-                    USER_MANAGER.addNewUser(false);
+                    out.println("Loading User Menu.");
+                    userMenu();
                     break;
                 case 2:
-                    out.println("Update User");
+                    out.println("Loading Company Menu");
+                    companyMenu();
                     break;
                 case 3:
-                    out.println("Delete User");
+                    out.println("Loading Inventory Menu");
                     userMenu();
                     return; // you need to return each time you call a new menu or it will loop twice.
                 case 4:
-                    out.println("List All Users");
-                    USER_MANAGER.displayAllUsers();
-                    out.println("Total Number of Users: " + USER_MANAGER.getNumUsers());
-                    break;
-                case 5:
-                    out.println("Exit");
+                    out.println("Have a good day!");
                     return;
-                case 6:
-                    out.println("List All Admin Users");
-                    out.println("going");
-
-                    USER_MANAGER.displayAdminUsers();
-                    break;
                 default:
                     out.println("Not a valid menu choice");
                     break;
@@ -62,16 +52,19 @@ public class Driver
      * Has the user pick the proper menu operation menu.
      * @return the menu choice of the user.
      */
-    private static int getMenuChoice()
+    private int getMenuChoice()
     {
+
+        int choice = 0;
         out.println("1. User Menu");
         out.println("2. Company Menu");
         out.println("3. Inventory Menu");
         out.println("4. Exit");
 
         out.println("Enter choice (e.x. 1, 2, 3, 4): ");
-
-        return new Scanner(System.in).nextInt();
+        choice = scanner.nextInt();
+        return (InputValidator.isValidMainMenuChoice(choice) ? choice
+                : getMenuChoice());
     }
 
 
