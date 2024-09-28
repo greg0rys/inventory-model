@@ -1,5 +1,3 @@
 # System-G
-_inventory managed in a custom way_
 
-
-*built using a demo of Silver Linings Technology System*
+Designed with you in mind, well that and making your life less of a headache. 
