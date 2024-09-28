@@ -17,6 +17,7 @@ public class CompanyTableManager
             "FROM Company\n" +
             "LEFT JOIN Users ON Users.company_id = Company.ID\n" +
             "GROUP BY Company.ID, Company.company_name, Company.company_location, Company.location_alias;";
+
     private static final String GET_ALL_EMPLOYEES_FOR_COMPANY = "SELECT u.full_name, u.email, u.job_role\n" +
             "FROM Users u\n" +
             "WHERE company_id = ?";
@@ -107,7 +108,7 @@ public class CompanyTableManager
 
     /**
      * Delete a company from the database.
-     * Users have user a foreign key in the database for the companies ID. This delete
+     * Users have a foreign key in the database for the company's ID. This deletes
      * first finds all users associated with that company and moves them to company 6 (unassigned)
      * <br /><b>Performs user check to ensure they want to delete this cannot be undone.</b>
      * @param companyName the name of the company we wish to delete

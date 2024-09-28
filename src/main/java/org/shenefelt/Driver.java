@@ -21,8 +21,6 @@ public class Driver
 
     private void menu() throws SQLException
     {
-        boolean next = true;
-
         do {
             switch(getMenuChoice())
             {
@@ -45,7 +43,7 @@ public class Driver
                     out.println("Not a valid menu choice");
                     break;
             }
-        } while(next);
+        } while(true);
     }
 
     /**
@@ -71,7 +69,9 @@ public class Driver
     // company menu operations.
     private void companyMenu() throws SQLException
     {
-        boolean next = true;
+        do {
+
+        } while(true);
 
     }
 
@@ -80,7 +80,6 @@ public class Driver
     // User Menu Operations
     private void userMenu() throws SQLException
     {
-        boolean next = true;
 
         do {
             switch(getUserMenuChoice())
@@ -110,14 +109,13 @@ public class Driver
                     break;
                 case 7:
                     out.println("Go back");
-                    next = false; // we out.
-                    break;
-
+//                    next = false; // we out.
+                    return;
 
                 default:
                     out.println("Not a valid menu choice");
             }
-        } while(next);
+        } while(true);
     }
 
 
