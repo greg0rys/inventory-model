@@ -10,19 +10,74 @@ import static java.lang.System.out;
 public class User
 {
 
-    private int companyID;
-    private int userID;
+
     private String firstName;
     private String lastName;
-    private String wholeName;
     private String jobRole;
-    private String email;
-    private String username;
     private int hireStatus;
     private boolean isAdmin;
+    private double payRate;
+    private int numHoursWorked;
+
+    // system generated fields
+    private int companyID;
+    private int userID;
+    private String wholeName;
+    private String email;
+    private String username;
+    private double overTimeRate;
+    private int numSickHours; // rounded up to next 10th
+    private int numVacationHours; // these will get rounded up
+
 
 
     public User() {}
+
+    public User(String first, String last, String jobName, int hiredStat, boolean admin,
+                double rateOfPay, int workedHours, int cID, int uID, String fullName,
+                String emailAddress, String userName, double otRate)
+    {
+        firstName = first;
+        lastName = last;
+        jobRole = jobName;
+        hireStatus = hiredStat;
+        isAdmin = admin;
+        payRate = rateOfPay;
+        numHoursWorked = workedHours;
+        companyID = cID;
+        userID = uID;
+        wholeName = fullName;
+        email = emailAddress;
+        username = userName;
+        overTimeRate = otRate;
+    }
+
+    // new user before DB commit (e.g. will generate fields.
+    public User(String first, String last, String jobName, int hireStat, boolean admin,
+                double rateOfPay, int workedHours, int totalSickHours, int totalPTOHours)
+    {
+        firstName = first;
+        lastName = last;
+        jobRole = jobName;
+        hireStatus = hireStat;
+        isAdmin = admin;
+        payRate = rateOfPay;
+        numSickHours = totalSickHours;
+        numVacationHours = totalPTOHours;
+
+        populateGeneratedFields();
+        numHoursWorked = workedHours;
+        wholeName = getFullName();
+    }
+
+    private void populateGeneratedFields()
+    {
+        wholeName = getFullName();
+        username = generateUserName();
+        email = getEmail();
+        overTimeRate = (payRate * 1.5);
+    }
+
 
     public User(String first, String last, String wholeName, String jobName, String email)
     {
@@ -30,6 +85,8 @@ public class User
         this.jobRole = jobName;
         this.email = email;
     }
+
+
 
     public User(int ID,
                 String fName,
@@ -270,7 +327,19 @@ public class User
      */
     public int getHireStatus() { return hireStatus; }
 
+    /**
+     * Get the total number of hours this employee worked in the pay period
+     * @return the number of hours worked or zero if no hours worked.
+     */
+    public int getWorkedHours() { return (numHoursWorked > 0) ? numHoursWorked : 0; }
 
+    public double getPayRate() { return payRate; }
+    public double getOverTimeRate() { return overTimeRate; }
+
+    public void setHoursWorked(int hours)
+    {
+        numHoursWorked = hours;
+    }
 
     /**
      * Formatted display of tghe user only showing user id first + last name

@@ -1,4 +1,4 @@
-package org.shenefelt.Reporters;
+package org.shenefelt.Model.Reporters;
 
 /**
  * Display information about a company's inventory - items, total, reorder threshold, cost,

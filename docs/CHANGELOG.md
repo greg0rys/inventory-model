@@ -14,3 +14,12 @@
 - Renamed projected to I&EMS
    - (Inventory and Employee Management System)
 
+
+## _[09.29.24] - 09/29/24_
+### Added
+- Focus shifting to employee management first. 
+- Added classes for time tracking
+- Implemented reporting features. 
+
+### Removing
+- Inventory Management System (for now).
