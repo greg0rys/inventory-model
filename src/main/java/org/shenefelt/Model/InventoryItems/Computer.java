@@ -1,7 +1,7 @@
 /**
  * The super class for all computer objects.
  */
-package org.shenefelt.Model;
+package org.shenefelt.Model.InventoryItems;
 
 
 import static java.lang.System.out;

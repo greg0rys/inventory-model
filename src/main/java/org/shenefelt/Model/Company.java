@@ -37,7 +37,8 @@ public class Company
 
     }
 
-    public Company(int ID, String cName, String cLocation, String lName, int empNum, ArrayList<User> employees)
+    public Company(int ID, String cName, String cLocation, String lName, int empNum,
+                   ArrayList<User> employees)
     {
         dbID = ID;
         companyName = cName;
@@ -55,7 +56,7 @@ public class Company
     public int getNumberOfEmployees() { return numberOfEmployees; }
 
     /**
-     * Set the companies name ensure non-null string is passed in
+     * Set the company's name ensure non-null string is passed in
      * @param newName the new company name.
      */
     public void setCompanyName(String newName)
@@ -108,7 +109,8 @@ public ArrayList<User> getStaff()
     public String toString()
     {
         return "\nCompany Name: " + companyName + "\nCompany Location: " + companyLocation
-                + "\nLocation Name: " + locationName + "\nNumber of Employees: " + numberOfEmployees;
+                + "\nLocation Name: " + locationName + "\nNumber of Employees: "
+                + numberOfEmployees;
     }
 
 

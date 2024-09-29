@@ -3,7 +3,7 @@ package org.shenefelt.DBDemos;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import org.shenefelt.Model.Company;
-import org.shenefelt.Model.Computer;
+import org.shenefelt.Model.InventoryItems.Computer;
 import org.shenefelt.Model.User;
 
 import java.io.FileReader;

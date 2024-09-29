@@ -1,6 +1,6 @@
 package org.shenefelt.Controller.TableMangers;
 import org.shenefelt.Controller.InventoryDatabase;
-import org.shenefelt.Model.Tablet;
+import org.shenefelt.Model.InventoryItems.Tablet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

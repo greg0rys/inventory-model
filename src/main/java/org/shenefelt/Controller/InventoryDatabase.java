@@ -1,6 +1,6 @@
 package org.shenefelt.Controller;
 
-import org.shenefelt.Model.Computer;
+import org.shenefelt.Model.InventoryItems.Computer;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

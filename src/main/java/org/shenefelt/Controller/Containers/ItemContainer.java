@@ -1,8 +1,9 @@
 package org.shenefelt.Controller.Containers;
 
 import org.shenefelt.Model.*;
-
-import static java.lang.System.out;
+import org.shenefelt.Model.InventoryItems.Computer;
+import org.shenefelt.Model.InventoryItems.Printer;
+import org.shenefelt.Model.InventoryItems.Tablet;
 
 // spell associated
 

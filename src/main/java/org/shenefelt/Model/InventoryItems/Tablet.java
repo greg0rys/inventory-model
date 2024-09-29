@@ -1,4 +1,4 @@
-package org.shenefelt.Model;
+package org.shenefelt.Model.InventoryItems;
 
 public class Tablet
 {

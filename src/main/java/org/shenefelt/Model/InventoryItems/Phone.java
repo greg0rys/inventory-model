@@ -1,4 +1,4 @@
-package org.shenefelt.Model;
+package org.shenefelt.Model.InventoryItems;
 
 // super class for other phone types
 public class Phone
