@@ -25,7 +25,7 @@ public class Driver
             switch(getMenuChoice())
             {
                 case 1:
-                    out.println("Loading User Menu.");
+                    out.println("Loading Employee Menu.");
                     userMenu();
                     break;
                 case 2:
@@ -54,7 +54,7 @@ public class Driver
     {
 
         int choice = 0;
-        out.println("1. User Menu");
+        out.println("1. Employee Menu");
         out.println("2. Company Menu");
         out.println("3. Inventory Menu");
         out.println("4. Exit");
@@ -77,7 +77,7 @@ public class Driver
 
 
 
-    // User Menu Operations
+    // Employee Menu Operations
     private void userMenu() throws SQLException
     {
 
@@ -85,11 +85,11 @@ public class Driver
             switch(getUserMenuChoice())
             {
                 case 1:
-                    out.println("Hire User");
+                    out.println("Hire Employee");
                     USER_MANAGER.addNewUser(true);
                     break;
                 case 2:
-                    out.println("Terminate User");
+                    out.println("Terminate Employee");
                     USER_MANAGER.terminateUser(USER_MANAGER.getUsers().get(USER_MANAGER.searchUserByID()));
                     break;
                 case 3:
@@ -121,10 +121,10 @@ public class Driver
 
     private static int getUserMenuChoice()
     {
-        out.println("1. Add New User");
+        out.println("1. Add New Employee");
         out.println("2. Change Employment Status");
         out.println("3. Change Employee Company");
-        out.println("4. Update User");
+        out.println("4. Update Employee");
         out.println("5. Display All Users from Company");
         out.println("6. Display All Employees (All Companies)");
         out.println("7. Display All Admin Users from Company");

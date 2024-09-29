@@ -2,9 +2,8 @@ package org.shenefelt;
 
 import org.shenefelt.Controller.Managers.CompanyManager;
 import org.shenefelt.Controller.Managers.UserManager;
-import org.shenefelt.Controller.TableMangers.CompanyTableManager;
 import org.shenefelt.Menus.MainMenu;
-import org.shenefelt.Model.User;
+import org.shenefelt.Model.Employee;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class Main
         CM.displayAllStaff();
 
 
-        ArrayList<User> temp = UM.getAllCompanyUsers(6);
+        ArrayList<Employee> temp = UM.getAllCompanyUsers(6);
 
         if(temp.isEmpty())
             out.println("No users for company");

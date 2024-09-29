@@ -1,12 +1,13 @@
 package org.shenefelt.Model.TimeKeeping;
 
-import org.shenefelt.Model.User;
+import org.shenefelt.Model.Employee;
 
 import java.util.Objects;
 
 public class EmployeeTimeCard
 {
-    private User employee;
+    private int timesheetID;
+    private Employee employee;
     private int numHours;
     private double payRate;
     private double totalPay;
@@ -19,11 +20,11 @@ public class EmployeeTimeCard
 
     public EmployeeTimeCard() {}
 
-    public EmployeeTimeCard(User u)
+    public EmployeeTimeCard(Employee u)
     {
         if(u == null)
         {
-            employee = new User();
+            employee = new Employee();
             employee.setHoursWorked(0);
         }
         else {
@@ -37,6 +38,10 @@ public class EmployeeTimeCard
         totalPay = (numHours * payRate) * (1 - taxRate); // full pay (-) taxes
     }
 
+    /**
+     * Employees over time hours
+     * @return The remainder of total hours worked - 40
+     */
     public int getOverForty()
     {
         if(employee == null || employee.getWorkedHours() < 0)
@@ -47,19 +52,14 @@ public class EmployeeTimeCard
 
     public double getOverTimePay()
     {
-        if(numHours < 40 || numHours == 0)
+        if(numHours < 40)
             return 0.00;
 
         return (numHours - 40) * employee.getOverTimeRate();
     }
 
-    public String getEmployeeName()
-    {
-        if(employee == null)
-            return "No employee assigned..";
 
-        return "This is the timesheet for: " + employee.getFullName();
-    }
+
 
     public double getTotalPay()
     {
@@ -67,6 +67,16 @@ public class EmployeeTimeCard
         totalPay = (numHours * payRate) * (1 - taxRate);
 
         return totalPay;
+    }
+
+    public Employee getEmployee()
+    {
+        return employee;
+    }
+
+    public int getHoursWorked()
+    {
+        return numHours;
     }
 
     public boolean addWorkedHours(int hours)
@@ -90,12 +100,16 @@ public class EmployeeTimeCard
         if(hours > numHours || hours < 0)
             return false;
 
-        numHours = (numHours - hours);
+        numHours -= hours;
         overTimePay = numHours < 40 ? 0 : (numHours - 40) * employee.getOverTimeRate();
         return true;
 
     }
 
+    /**
+     * Calculate employee pay including any overtime with tax deducted
+     * @return the total amount the employee will be paid.
+     */
     public double calculateTotalPay()
     {
         if(numHours < 0)
@@ -104,20 +118,36 @@ public class EmployeeTimeCard
             return 0.00;
         if(numHours == 0)
             return 0.00;
-        if(taxRate < 0)
-            return 0.00;
-        if(numHours > 40)
-            overTimePay = (numHours - 40) * employee.getOverTimeRate();
 
-        totalPay = (numHours * payRate) * (1 - taxRate);
+        totalPay = (numHours * payRate) + calculateOvertime() * (1 - taxRate);
         return totalPay;
     }
 
+    /**
+     * Calculate this employee total amount of compensation for overtime.
+     * @return the total amount of overtime payment.
+     */
+    private double calculateOvertime()
+    {
+        if(numHours < 41)
+            return 0.00;
+
+        return (numHours - 40) * employee.getOverTimeRate();
+    }
+
+    /**
+     * Override the toString method to produce a table for the time card output.
+     * @return a String represented by a table.
+     */
     @Override
     public String toString()
     {
-        return "Employee: " + employee.getFullName() + "\nHours worked: " + numHours + "\nPay Rate: "
-                + payRate + "\nTotal Pay: " + calculateTotalPay();
+        String header = employee.getFullName();
+
+        String tableHeader = String.format("%-15s %-10s %-15s %-15s", "Hours Worked", "Pay Rate", "Total Pay", "Overtime Pay");
+        String tableContent = String.format("%-15d %-10.2f %-15.2f %-15.2f", numHours, payRate, calculateTotalPay(), getOverTimePay());
+
+        return header + "\n" + tableHeader + "\n" + tableContent;
     }
 
 

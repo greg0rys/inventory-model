@@ -55,7 +55,7 @@ BEGIN
     SET NEW.full_name = CONCAT(NEW.first_name, ' ', NEW.last_name);
 END//
 
-# Trigger to add users to ActiveUsers by default
+# Trigger to add employees to ActiveUsers by default
 CREATE TRIGGER after_insert_add_to_active
     AFTER INSERT ON Users
     FOR EACH ROW

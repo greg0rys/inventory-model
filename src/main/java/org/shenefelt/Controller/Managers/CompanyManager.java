@@ -2,7 +2,7 @@ package org.shenefelt.Controller.Managers;
 
 import org.shenefelt.Controller.TableMangers.CompanyTableManager;
 import org.shenefelt.Model.Company;
-import org.shenefelt.Model.User;
+import org.shenefelt.Model.Employee;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class CompanyManager
     public void displayAllStaff()
     {
         for(Company c : ALL_COMPANIES)
-            for(User u : c.getStaff())
+            for(Employee u : c.getStaff())
             {
                 out.println("Displaying employees for " + c.getCompanyName() + "\n");
                 out.println(u.getFullName());

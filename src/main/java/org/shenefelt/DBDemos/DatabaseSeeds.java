@@ -4,7 +4,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import org.shenefelt.Model.Company;
 import org.shenefelt.Model.InventoryItems.Computer;
-import org.shenefelt.Model.User;
+import org.shenefelt.Model.Employee;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class DatabaseSeeds
     private static final String INSERT_INTO_COMPUTERS ="INSERT INTO Computers VALUES(default,?,?,?,?,?,?,?)";
     private static final String INSERT_INTO_PRINTERS ="";
     private static final String INSERT_INTO_CELL_PHONES ="";
-    private static final ArrayList<User> ALL_DB_USERS = new ArrayList<>();
+    private static final ArrayList<Employee> ALL_DB_EMPLOYEES = new ArrayList<>();
     private static final ArrayList<Company> ALL_COMPANIES = new ArrayList<>();
     private static boolean seededUsers,seededCompanies,seededComputers,seededPrinters,seededCellPhones;
 

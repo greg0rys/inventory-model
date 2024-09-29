@@ -4,7 +4,7 @@
 ### Added
 - initial release of I&EMS
 - basic company management
-- basic user management
+- basic employee management
 - input validation
 
 ## [09.28.24] - 09/28/24

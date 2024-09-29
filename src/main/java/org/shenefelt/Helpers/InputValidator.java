@@ -43,7 +43,7 @@ public class InputValidator
         if (valid_user_ids.contains(id))
             return true;
 
-        out.println("Invalid User ID. Try again");
+        out.println("Invalid Employee ID. Try again");
         return false;
     }
 

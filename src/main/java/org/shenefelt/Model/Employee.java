@@ -3,11 +3,12 @@ package org.shenefelt.Model;
 
 import org.apache.commons.text.WordUtils;
 import org.shenefelt.Helpers.InputValidator;
+import org.shenefelt.Model.TimeKeeping.EmployeeTimeCard;
 
 import static java.lang.System.out;
 
 @SuppressWarnings("ALL")
-public class User
+public class Employee
 {
 
 
@@ -18,6 +19,7 @@ public class User
     private boolean isAdmin;
     private double payRate;
     private int numHoursWorked;
+    private EmployeeTimeCard timeCard;
 
     // system generated fields
     private int companyID;
@@ -31,11 +33,11 @@ public class User
 
 
 
-    public User() {}
+    public Employee() {}
 
-    public User(String first, String last, String jobName, int hiredStat, boolean admin,
-                double rateOfPay, int workedHours, int cID, int uID, String fullName,
-                String emailAddress, String userName, double otRate)
+    public Employee(String first, String last, String jobName, int hiredStat, boolean admin,
+                    double rateOfPay, int workedHours, int cID, int uID, String fullName,
+                    String emailAddress, String userName, double otRate)
     {
         firstName = first;
         lastName = last;
@@ -53,8 +55,8 @@ public class User
     }
 
     // new user before DB commit (e.g. will generate fields.
-    public User(String first, String last, String jobName, int hireStat, boolean admin,
-                double rateOfPay, int workedHours, int totalSickHours, int totalPTOHours)
+    public Employee(String first, String last, String jobName, int hireStat, boolean admin,
+                    double rateOfPay, int workedHours, int totalSickHours, int totalPTOHours)
     {
         firstName = first;
         lastName = last;
@@ -79,7 +81,7 @@ public class User
     }
 
 
-    public User(String first, String last, String wholeName, String jobName, String email)
+    public Employee(String first, String last, String wholeName, String jobName, String email)
     {
         this.wholeName = wholeName;
         this.jobRole = jobName;
@@ -88,12 +90,12 @@ public class User
 
 
 
-    public User(int ID,
-                String fName,
-                String lName,
-                String fullName,
-                int cID,
-                String jobName)
+    public Employee(int ID,
+                    String fName,
+                    String lName,
+                    String fullName,
+                    int cID,
+                    String jobName)
     {
         userID = ID;
         firstName = fName;
@@ -103,15 +105,15 @@ public class User
         jobRole = jobName;
     }
 
-    public User(int ID,
-                String fName,
-                String lName,
-                String fullName,
-                int cID,
-                String jobName,
-                String userN,
-                String emailAddress,
-                int hireStat)
+    public Employee(int ID,
+                    String fName,
+                    String lName,
+                    String fullName,
+                    int cID,
+                    String jobName,
+                    String userN,
+                    String emailAddress,
+                    int hireStat)
     {
         userID = ID;
         firstName = fName;
@@ -125,16 +127,16 @@ public class User
     }
 
 
-    public User(int ID,
-                String fName,
-                String lName,
-                String fullName,
-                int cID,
-                String jobName,
-                String userN,
-                String emailAddress,
-                int hireStat,
-                boolean admin)
+    public Employee(int ID,
+                    String fName,
+                    String lName,
+                    String fullName,
+                    int cID,
+                    String jobName,
+                    String userN,
+                    String emailAddress,
+                    int hireStat,
+                    boolean admin)
     {
         userID = ID;
         firstName = fName;
@@ -158,7 +160,7 @@ public class User
      * @param jobName users job role
      * @param cID the company ID the users associates with.
      */
-    public User(String fName, String lName, String jobName, int cID)
+    public Employee(String fName, String lName, String jobName, int cID)
     {
         firstName = fName;
         lastName = lName;
@@ -335,6 +337,7 @@ public class User
 
     public double getPayRate() { return payRate; }
     public double getOverTimeRate() { return overTimeRate; }
+    public EmployeeTimeCard getTimeCard() { return timeCard; }
 
     public void setHoursWorked(int hours)
     {
@@ -372,8 +375,8 @@ public class User
     {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return userID == user.userID;
+        Employee employee = (Employee) o;
+        return userID == employee.userID;
     }
 
     /**

@@ -3,7 +3,7 @@ package org.shenefelt.Controller.Managers;
 import org.apache.commons.text.WordUtils;
 import org.shenefelt.Controller.TableMangers.UserTableManager;
 import org.shenefelt.Helpers.InputValidator;
-import org.shenefelt.Model.User;
+import org.shenefelt.Model.Employee;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,41 +14,41 @@ import static java.lang.System.out;
 
 public class UserManager
 {
-    private final ArrayList<User> ALL_USERS = new ArrayList<>(); // store a local copy to avoid excess calls to DB
-    private final static ArrayList<User> NEW_USERS = new ArrayList<>();
+    private final ArrayList<Employee> ALL_Employees = new ArrayList<>(); // store a local copy to avoid excess calls to DB
+    private final static ArrayList<Employee> NEW_EMPLOYEES = new ArrayList<>();
     private static final Logger logger = Logger.getLogger(UserManager.class.getName());
 
 
     public UserManager() throws SQLException
     {
-        ALL_USERS.addAll(UserTableManager.getUsers()); // load our users from the database.
+        ALL_Employees.addAll(UserTableManager.getUsers()); // load our users from the database.
     }
 
 
-    public ArrayList<User> getUsers() { return ALL_USERS; }
+    public ArrayList<Employee> getUsers() { return ALL_Employees; }
 
 
     public boolean addNewUser(boolean isAdmin) throws SQLException
     {
-        ALL_USERS.add(collectUserData());
-        return pushLocalUpdate(ALL_USERS.get(ALL_USERS.size() - 1));
+        ALL_Employees.add(collectUserData());
+        return pushLocalUpdate(ALL_Employees.get(ALL_Employees.size() - 1));
     }
 
     private void createAdminUser() { }
 
 
-    private boolean pushLocalUpdate(User U) throws SQLException { return UserTableManager.addUser(U); }
+    private boolean pushLocalUpdate(Employee U) throws SQLException { return UserTableManager.addUser(U); }
 
 
     /**
      * Collect data for a new user, all inputs are sanitized.
      * @return
      */
-    private User collectUserData()
+    private Employee collectUserData()
     {
         logger.info("Collecting user data..");
         Scanner sc = new Scanner(System.in);
-        User temp = new User();
+        Employee temp = new Employee();
         String S, X, Y;
         int I = 0;
 
@@ -60,7 +60,7 @@ public class UserManager
         temp.setJobRole(WordUtils.capitalizeFully(sc.nextLine()));
         out.println("Users Company ID: ");
         temp.setCompanyID(sc.nextInt());
-        logger.info("User data collected.. Validating inputs.");
+        logger.info("Employee data collected.. Validating inputs.");
 
         return temp;
     }
@@ -77,8 +77,8 @@ public class UserManager
     {
         if(UserTableManager.updateUsernameAndEmail(userID,username))
         {
-            ALL_USERS.clear();
-            ALL_USERS.addAll(UserTableManager.getUsers());
+            ALL_Employees.clear();
+            ALL_Employees.addAll(UserTableManager.getUsers());
             return true;
         }
 
@@ -92,10 +92,10 @@ public class UserManager
     public int searchUserByID()
     {
         int input = 0;
-        for(User u : ALL_USERS)
+        for(Employee u : ALL_Employees)
             u.displayNameWithID();
 
-        out.println("Please Enter the ID of The User Above: ");
+        out.println("Please Enter the ID of The Employee Above: ");
         input = new Scanner(System.in).nextInt();
 
         if(!InputValidator.validateUserSelectionByID(input))
@@ -111,10 +111,10 @@ public class UserManager
     public void displayAllUsers() throws SQLException
     {
         // ensure that our list is actually loaded with users
-        if(ALL_USERS.isEmpty())
-            ALL_USERS.addAll(UserTableManager.getUsers());
+        if(ALL_Employees.isEmpty())
+            ALL_Employees.addAll(UserTableManager.getUsers());
 
-        for(User u : ALL_USERS)
+        for(Employee u : ALL_Employees)
             out.println(u.toString());
 
 
@@ -125,23 +125,23 @@ public class UserManager
      */
     public void displayAdminUsers()
     {
-        if(ALL_USERS.isEmpty())
+        if(ALL_Employees.isEmpty())
         {
             out.println("There are no admins in the list");
             return;
         }
 
-        for(User u : ALL_USERS)
+        for(Employee u : ALL_Employees)
         {
             if(u.isAdmin()) {
-                out.println(u); // overridden User.toString() allows us to just pass the user and it will be called implictly.
+                out.println(u); // overridden Employee.toString() allows us to just pass the user and it will be called implictly.
 
             }
         }
 
     }
 
-    public void changeUsersCompany(User U)
+    public void changeUsersCompany(Employee U)
     {
         if(U == null) return;
 
@@ -155,7 +155,7 @@ public class UserManager
      * Get the number of users in the list
      * @return the total number of users in the list.
      */
-    public int getNumUsers() { return ALL_USERS.size(); }
+    public int getNumUsers() { return ALL_Employees.size(); }
 
 
     /**
@@ -165,7 +165,7 @@ public class UserManager
      * @return true if we successfully modified the DB false - if redundant or SQLException
      * @throws SQLException DB Connection Error
      */
-    public boolean changeHireStatus(User U, int hireStatus) throws SQLException
+    public boolean changeHireStatus(Employee U, int hireStatus) throws SQLException
     {
         if(U == null) return false;
 
@@ -183,7 +183,7 @@ public class UserManager
 
 
     // we can get rid of this it is redundant to the above method as we are using an int flag.
-    public boolean terminateUser(User U) throws SQLException
+    public boolean terminateUser(Employee U) throws SQLException
     {
         if(changeHireStatus(U, 1))
         {
@@ -196,13 +196,13 @@ public class UserManager
 
     /**
      * Update the users hired status to active
-     * @param U the User we will update
+     * @param U the Employee we will update
      * @return true if updated, false if the record was unable to update.
      * @throws SQLException database error.
      */
 
     // remove this and condense.
-    public boolean hireUser(User U) throws SQLException
+    public boolean hireUser(Employee U) throws SQLException
     {
         if(changeHireStatus(U, 2))
         {
@@ -215,12 +215,12 @@ public class UserManager
     }
 
 
-    private boolean updateLocal(User U)
+    private boolean updateLocal(Employee U)
     {
         if(!hasUser(U)) return false;
 
 
-        return ALL_USERS.set(ALL_USERS.indexOf(U), U) == null;
+        return ALL_Employees.set(ALL_Employees.indexOf(U), U) == null;
     }
 
 
@@ -232,22 +232,22 @@ public class UserManager
      * @param U the user we wish to check for
      * @return true if the user is found false if else.
      */
-    public boolean hasUser(User U) { return ALL_USERS.contains(U); }
+    public boolean hasUser(Employee U) { return ALL_Employees.contains(U); }
 
     /**
      * Get a user from the list with their database ID.
      * @param dbID the ID we wish to call
      * @return the user if they are located null if they are not
      */
-    public User getUser(int dbID)
+    public Employee getUser(int dbID)
     {
         if(!InputValidator.validateUserSelectionByID(dbID))
             return null;
 
-        User[] temp = new User[1]; // store the result in a single array vs an atomic value.
+        Employee[] temp = new Employee[1]; // store the result in a single array vs an atomic value.
 
         // seek out the user with a matching id.
-        ALL_USERS.forEach(e->{
+        ALL_Employees.forEach(e->{
             if(e.getUserID() == dbID)
                 temp[0] = e;
         });
@@ -258,7 +258,7 @@ public class UserManager
 
     public boolean updateUserFullName() throws SQLException {
         Scanner sc = new Scanner(System.in);
-        User temp = new User();
+        Employee temp = new Employee();
         out.println("Enter Users First Name: ");
         temp.setFirstName(WordUtils.capitalizeFully(sc.nextLine()).strip());
         out.println("Enter Users Last Name: ");
@@ -271,11 +271,11 @@ public class UserManager
     }
 
 
-    public ArrayList<User> getAllCompanyUsers(int companyID)
+    public ArrayList<Employee> getAllCompanyUsers(int companyID)
     {
-        ArrayList<User> temp = new ArrayList<>();
+        ArrayList<Employee> temp = new ArrayList<>();
 
-        ALL_USERS.forEach(e->{
+        ALL_Employees.forEach(e->{
             if(e.getCompanyID() == companyID)
                 temp.add(e);
         });

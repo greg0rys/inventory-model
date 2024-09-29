@@ -72,7 +72,7 @@ public class Computer
         out.println("Make: " + make);
         out.println("Model: " + model);
         out.println("Company ID: " + companyID);
-        out.println("User ID: " + userID);
+        out.println("Employee ID: " + userID);
 
         insertSeperator();
     }
@@ -87,7 +87,7 @@ public class Computer
         out.println("Model: " + model);
         out.println("Device Type: " + type);
         out.println("Owner: " + companyID);
-        out.println("User: " + userID);
+        out.println("Employee: " + userID);
         out.println();
 
         insertSeperator();

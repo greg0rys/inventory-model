@@ -167,7 +167,7 @@ public class ComputerTableManager
             ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                out.printf("User: %s\n\tMake: %s\n\tModel: %s", rs.getString("user_first_name"), rs.getString("pc_make"), rs.getString("pc_model"));
+                out.printf("Employee: %s\n\tMake: %s\n\tModel: %s", rs.getString("user_first_name"), rs.getString("pc_make"), rs.getString("pc_model"));
             } else {
                 out.println("No computer found for the given user.");
             }

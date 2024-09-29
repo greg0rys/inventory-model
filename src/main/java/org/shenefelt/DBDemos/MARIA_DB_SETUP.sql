@@ -23,7 +23,7 @@ CREATE TABLE Company(
                         location_alias TEXT NOT NULL
 );
 
-# User Objects
+# Employee Objects
 CREATE TABLE Users(
                       ID INT PRIMARY KEY AUTO_INCREMENT,
                       first_name TEXT NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE Printers(
                          FOREIGN KEY (assigned_user) REFERENCES Users(ID) ON DELETE CASCADE
 );
 
-# keep track of all the items a user has assigned to them.
+# keep track of all the items a employee has assigned to them.
 CREATE TABLE UserItems (
                            ID INT AUTO_INCREMENT PRIMARY KEY,
                            user_id INT,

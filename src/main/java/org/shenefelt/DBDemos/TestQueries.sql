@@ -1,6 +1,6 @@
 USE TEST;
 
-# Fetching Computers assigned to users
+# Fetching Computers assigned to employees
 SELECT
     U.full_name AS 'User',
     'Computer' AS 'Device Type',
@@ -11,7 +11,7 @@ SELECT
 FROM Users U
          INNER JOIN Computers C ON U.ID = C.assigned_user;
 
-# Fetching Tablets assigned to users
+# Fetching Tablets assigned to employees
 SELECT
     U.full_name AS 'User',
     'Tablet' AS 'Device Type',
@@ -22,7 +22,7 @@ SELECT
 FROM Users U
          INNER JOIN Tablets T ON U.ID = T.assigned_user;
 
-# Fetching CellPhones assigned to users
+# Fetching CellPhones assigned to employees
 SELECT
     U.full_name AS 'User',
     'CellPhone' AS 'Device Type',
@@ -33,7 +33,7 @@ SELECT
 FROM Users U
          INNER JOIN CellPhone CP ON U.ID = CP.assigned_user;
 
-# Fetching Printers assigned to users
+# Fetching Printers assigned to employees
 SELECT
     U.full_name AS 'User',
     'Printer' AS 'Device Type',
@@ -164,7 +164,7 @@ BEGIN
     END IF;
 END//
 
-# Trigger to add users to ActiveUsers by default
+# Trigger to add employees to ActiveUsers by default
 CREATE TRIGGER after_insert_add_to_active
     AFTER INSERT ON Users
     FOR EACH ROW

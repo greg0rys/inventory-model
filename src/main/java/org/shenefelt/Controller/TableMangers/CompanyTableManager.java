@@ -2,7 +2,7 @@ package org.shenefelt.Controller.TableMangers;
 
 import org.shenefelt.Controller.InventoryDatabase;
 import org.shenefelt.Model.Company;
-import org.shenefelt.Model.User;
+import org.shenefelt.Model.Employee;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -80,7 +80,7 @@ public class CompanyTableManager
      */
     private static void getStaff(Company C)
     {
-        ArrayList<User> users = new ArrayList<>();
+        ArrayList<Employee> employees = new ArrayList<>();
         try(Connection conn = InventoryDatabase.getConnection())
         {
                 PreparedStatement ps = conn.prepareStatement(GET_ALL_EMPLOYEES_FOR_COMPANY);
@@ -88,7 +88,7 @@ public class CompanyTableManager
                 ResultSet rs = ps.executeQuery();
 
                 while(rs.next())
-                    users.add(new User(
+                    employees.add(new Employee(
                             rs.getString("first_name"),
                             rs.getString("last_name"),
                             rs.getString("full_name"),
@@ -97,7 +97,7 @@ public class CompanyTableManager
 
                     ));
 
-                C.setStaff(users);
+                C.setStaff(employees);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -208,14 +208,14 @@ public class CompanyTableManager
      * @param companyName the name of the company we want employees from
      * @return an ArrayList containing all known company users.
      */
-    public static ArrayList<User> getCompanyUsers(String companyName)
+    public static ArrayList<Employee> getCompanyUsers(String companyName)
     {
-        ArrayList<User> users = new ArrayList<>();
+        ArrayList<Employee> employees = new ArrayList<>();
 
         int companyID = getCompanyIDFromName(companyName);
         out.println("CID: " + companyID);
         if(companyID == -1)
-            return users;
+            return employees;
 
         try(Connection conn = InventoryDatabase.getConnection())
         {
@@ -227,7 +227,7 @@ public class CompanyTableManager
             else
                 out.println("Nothing found..");
             while(rs.next())
-                users.add(new User(
+                employees.add(new Employee(
                         rs.getString("first_name"),
                         rs.getString("last_name"),
                         rs.getString("job_role"),
@@ -238,7 +238,7 @@ public class CompanyTableManager
             throw new RuntimeException(e);
         }
 
-        return users;
+        return employees;
     }
 
     /**

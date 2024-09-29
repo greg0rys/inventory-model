@@ -37,7 +37,7 @@ DELIMITER //
 
 
 DELIMITER //
-# create the users username
+# create the employees username
 CREATE TRIGGER before_insert_Users_make_username
     AFTER INSERT ON Users
     FOR EACH ROW
@@ -49,7 +49,7 @@ DELIMITER ;
 
 
 DELIMITER //
-# create the users email
+# create the employees email
 CREATE TRIGGER before_insert_Users_make_email_c
     AFTER INSERT ON Users
     FOR EACH ROW
@@ -72,7 +72,7 @@ DELIMITER ;
 
 
 DELIMITER //
-# add the users to active users by default
+# add the employees to active employees by default
 CREATE TRIGGER after_insert_add_to_active
     AFTER INSERT ON Users
     FOR EACH ROW

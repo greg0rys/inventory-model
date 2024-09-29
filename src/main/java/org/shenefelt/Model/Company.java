@@ -11,7 +11,7 @@ public class Company
     private String companyName;
     private String companyLocation;
     private int numberOfEmployees;
-    private ArrayList<User> staff;
+    private ArrayList<Employee> staff;
 
 
 
@@ -38,7 +38,7 @@ public class Company
     }
 
     public Company(int ID, String cName, String cLocation, String lName, int empNum,
-                   ArrayList<User> employees)
+                   ArrayList<Employee> employees)
     {
         dbID = ID;
         companyName = cName;
@@ -91,12 +91,12 @@ public class Company
     }
 
 
-    public void setStaff(ArrayList<User> newStaff)
+    public void setStaff(ArrayList<Employee> newStaff)
 {
     staff = newStaff;
 }
 
-public ArrayList<User> getStaff()
+public ArrayList<Employee> getStaff()
     {
         return staff;
     }

@@ -6,7 +6,8 @@ package org.shenefelt.Controller.TableMangers;
 import org.shenefelt.Controller.InventoryDatabase;
 import org.shenefelt.Helpers.InputValidator;
 import org.shenefelt.Model.Company;
-import org.shenefelt.Model.User;
+import org.shenefelt.Model.Employee;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ import static java.lang.System.out;
 public class UserTableManager
 {
     private static ArrayList<Integer> USER_IDS = new ArrayList<>();
-    private static final ArrayList<User> USERS = new ArrayList<>();
+    private static final ArrayList<Employee> EMPLOYEES = new ArrayList<>();
     private static final ArrayList<Company> COMPANIES = new ArrayList<>(); // used to get company data.
     private static final String ADD_USER = "INSERT INTO Users VALUES(default,?,?,?,?,?,?,?,?,?)";
     private static final String ADD_USER_FULL_NAME = "UPDATE Users SET full_name = ? WHERE ID = ?";
@@ -52,7 +53,7 @@ public class UserTableManager
             {
                 int ID = rs.getInt("ID");
                 USER_IDS.add(ID);
-                USERS.add(new User(
+                EMPLOYEES.add(new Employee(
                         ID,
                         rs.getString("first_name"),
                         rs.getString("last_name"),
@@ -75,7 +76,7 @@ public class UserTableManager
      * @param U the user we want to add.
      * @throws SQLException error with database query or connection.
      */
-    public static boolean addUser(User U) throws SQLException
+    public static boolean addUser(Employee U) throws SQLException
     {
         if(U == null)
             return false;
@@ -98,7 +99,7 @@ public class UserTableManager
             {
                 out.println(U.getFullName() + " has been added");
                 U.setUserID((USER_IDS.size() - 1) + 1);
-                if(USERS.add(U))
+                if(EMPLOYEES.add(U))
                     LOGGER.info(U.getFullName() + " has been added to the database.");
                 return true;
             }
@@ -123,27 +124,27 @@ public class UserTableManager
      * Get the local structure that is holding the user objects
      * @return an array list of users.
      */
-    public static ArrayList<User> getUsers() throws SQLException {
-        if(USERS.isEmpty())
+    public static ArrayList<Employee> getUsers() throws SQLException {
+        if(EMPLOYEES.isEmpty())
             getAllUsers();
-        return USERS;
+        return EMPLOYEES;
     }
 
     /**
      * Select a given user ID to get the matching user object from the structures
-     * @return the User we are looking for or null
+     * @return the Employee we are looking for or null
      * @throws SQLException error with database query or connection.
      */
-    public static User getUser() throws SQLException
+    public static Employee getUser() throws SQLException
     {
-        if(USERS.isEmpty() || USER_IDS.isEmpty())
+        if(EMPLOYEES.isEmpty() || USER_IDS.isEmpty())
             getAllUsers();
         int choice =  selectUserID();
         // make sure the user exists either here in the local array list or the DB. if the ladder add user to list.
         if(!userInList(choice))
             return null;
 
-        return USERS.get(choice - 1);
+        return EMPLOYEES.get(choice - 1);
     }
 
     /**
@@ -154,11 +155,11 @@ public class UserTableManager
      */
     public static boolean userInList(int userID) throws SQLException
     {
-        if(USERS.isEmpty())
+        if(EMPLOYEES.isEmpty())
             return false;
 
 
-        for(User U : USERS)
+        for(Employee U : EMPLOYEES)
         {
             if(U.getUserID() == userID)
                 return true;
@@ -178,14 +179,14 @@ public class UserTableManager
     {
         try(Connection conn = InventoryDatabase.getConnection())
         {
-            User temp = null;
+            Employee temp = null;
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM Users WHERE ID = ?");
             ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
 
             if(rs.next())
             {
-                USERS.add(new User(rs.getInt("ID"), rs.getString("first_name"),
+                EMPLOYEES.add(new Employee(rs.getInt("ID"), rs.getString("first_name"),
                         rs.getString("last_name"), rs.getString("full_name"),
                         rs.getInt("company_id"), rs.getString("job_role")));
 
@@ -204,9 +205,9 @@ public class UserTableManager
      * @throws SQLException error with database query
      */
     public static int selectUserID() throws SQLException {
-        if(USERS.isEmpty() || USER_IDS.isEmpty())
+        if(EMPLOYEES.isEmpty() || USER_IDS.isEmpty())
             getAllUsers();
-        for(User U : USERS)
+        for(Employee U : EMPLOYEES)
             U.displayNameWithID();
         out.println("Please enter a user id from above: ");
         int choice = SCANNER.nextInt();
@@ -219,16 +220,16 @@ public class UserTableManager
      * @return true if we updated the user.
      * @throws SQLException there was an error with the database.
      */
-    public static boolean updateUserFullName(User U) throws SQLException {
+    public static boolean updateUserFullName(Employee U) throws SQLException {
         String newName;
         int userID;
-        User temp;
+        Employee temp;
 
         out.println("Please enter the new full name: ");
         newName = SCANNER.next();
         out.println("Please enter the user ID: ");
         userID = selectUserID();
-        temp = USERS.get(userID - 1);
+        temp = EMPLOYEES.get(userID - 1);
 
         try(Connection conn = InventoryDatabase.getConnection())
         {

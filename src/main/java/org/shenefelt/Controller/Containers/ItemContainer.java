@@ -16,19 +16,19 @@ public class ItemContainer
     private Computer computer;
     private Printer printer;
     private Tablet tablet;
-    private User associatedUser;
+    private Employee associatedEmployee;
 
 
     public ItemContainer() { }
 
     public ItemContainer(CellPhone phone, Computer computer,
-                         Printer printer, Tablet tablet, User associatedUser)
+                         Printer printer, Tablet tablet, Employee associatedEmployee)
     {
         this.phone = phone;
         this.computer = computer;
         this.printer = printer;
         this.tablet = tablet;
-        this.associatedUser = associatedUser;
+        this.associatedEmployee = associatedEmployee;
     }
 
 
@@ -52,9 +52,9 @@ public class ItemContainer
         this.tablet = tablet;
     }
 
-    public ItemContainer(User associatedUser)
+    public ItemContainer(Employee associatedEmployee)
     {
-        this.associatedUser = associatedUser;
+        this.associatedEmployee = associatedEmployee;
     }
 
     public void setPhone(CellPhone phone)
@@ -77,9 +77,9 @@ public class ItemContainer
         this.tablet = tablet;
     }
 
-    public void setAssociatedUser(User associatedUser)
+    public void setAssociatedUser(Employee associatedEmployee)
     {
-        this.associatedUser = associatedUser;
+        this.associatedEmployee = associatedEmployee;
     }
 
     public CellPhone getPhone()
@@ -102,9 +102,9 @@ public class ItemContainer
         return tablet;
     }
 
-    public User getAssociatedUser()
+    public Employee getAssociatedUser()
     {
-        return associatedUser;
+        return associatedEmployee;
     }
 
 
